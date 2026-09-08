@@ -1,43 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nufaika International | N-ERP</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">N</div>
-        <div><strong>Nufaika</strong><span>International</span></div>
-      </div>
-      <div class="system-name">N-ERP</div>
-      <nav id="nav">
-        <button class="nav-item active" data-page="dashboard">▦ <span>Dashboard</span></button>
-        <button class="nav-item" data-page="clients">♙ <span>Clients</span></button>
-        <button class="nav-item" data-page="loans">▣ <span>Loans</span></button>
-        <button class="nav-item" data-page="collections">↗ <span>Collections</span></button>
-        <button class="nav-item" data-page="reports">◫ <span>Reports</span></button>
-        <button class="nav-item" data-page="admin">⚙ <span>Administration</span></button>
-      </nav>
-      <div class="sidebar-footer">EST. 2026</div>
-    </aside>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NUFAIKA EMIS V1.0</title>
+<style>
+body{margin:0;font-family:Arial;background:#f4f8f4}
+.header{background:#0d4a23;color:#fff;padding:12px;border-bottom:4px solid #c8a94a;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.header img{height:45px;background:#fff;padding:4px;border-radius:6px}
+button{cursor:pointer}
+.nav button{margin:2px;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff}
+.nav button.active{background:#c8a94a;color:#000;font-weight:bold}
+.card{background:#fff;margin:12px;padding:16px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+input,select{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
+.btn{background:#109040;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:13px}th{background:#0d4a23;color:#fff;padding:8px;text-align:left}td{padding:8px;border-bottom:1px solid #eee}
+</style></head><body>
 
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <button id="mobileMenu" class="icon-btn">☰</button>
-          <h1 id="pageTitle">Executive Dashboard</h1>
-          <p id="pageSubtitle">Nufaika International management overview</p>
-        </div>
-        <div class="user-chip"><span class="avatar">AM</span><span>Administrator</span></div>
-      </header>
+<div id="loginPage"><div class="card" style="max-width:400px;margin:60px auto;text-align:center">
+<img src="logo.png" style="width:140px" onerror="this.style.display='none'">
+<h2 style="color:#0d4a23;margin-bottom:0">NUFAIKA INTERNATIONAL</h2><p style="color:#c8a94a;font-weight:bold;letter-spacing:3px;margin-top:0">EST 2026</p>
+<h3>NI EMIS V1.0</h3><p>Paybill 522533 | Account 7755655</p>
+<select id="role"><option>CEO</option><option>CFO</option><option>Branch Manager</option><option selected>Loan Officer</option></select>
+<input id="user" value="admin@nufaika.co.ke"><input id="pass" type="password" value="1234">
+<button class="btn" style="width:100%" onclick="doLogin()">Sign In</button>
+</div></div>
 
-      <section id="content" class="content"></section>
-    </main>
-  </div>
-  <script src="app.js"></script>
-</body>
-</html>
+<div id="app" style="display:none">
+<div class="header"><div style="display:flex;align-items:center;gap:10px"><img src="logo.png"><div><b>NUFAIKA</b><br><small>Paybill 522533 | 7755655 | NO MAX</small></div></div>
+<div class="nav">
+<button id="b-dash" class="active" onclick="openTab('dash')">Dashboard</button>
+<button id="b-clients" onclick="openTab('clients')">Clients</button>
+<button id="b-disb" onclick="openTab('disb')">Disbursement</button>
+<button id="b-collect" onclick="openTab('collect')">Collections</button>
+<button id="b-mpesa" onclick="openTab('mpesa')">M-Pesa</button>
+<button onclick="location.reload()">Logout</button>
+</div></div>
+
+<div id="tab-dash" class="tab"><div class="card"><h3>Dashboard - Business Loan NO MAX LIMIT</h3><p id="stats">Loading...</p><p><b>Formula:</b> P*r*(1+r)^n/((1+r)^n-1) where r=15%/n. Interest reduces as balance reduces. Processing 4.5% Business 5.5% Small separate NOT deducted.</p></div></div>
+<div id="tab-clients" class="tab" style="display:none"><div class="card"><h3>Clients <button class="btn" style="float:right" onclick="document.getElementById('reg').style.display='block'">+ New Client KES 500</button></h3><div id="reg" style="display:none;border:2px dashed #c8a94a;padding:12px;margin:10px 0"><input id="cName" placeholder="Full Name"><input id="cID" placeholder="ID Number Unique"><input id="cPhone" placeholder="Phone"><input id="cGId" placeholder="Guarantor ID"><input id="cGName" placeholder="Guarantor Name"><button class="btn" onclick="addClient()">Register</button></div><table id="clientTable"><tr><th>ID</th><th>Name</th><th>ID No</th><th>Phone</th><th>Guarantor</th></tr></table></div></div>
+<div id="tab-disb" class="tab" style="display:none"><div class="card"><h3>Disbursement - NO MAX</h3><select id="dClient"></select><select id="dType"><option value="business">Business Loan 15% NO MAX</option><option value="small">Small Loan 2% Max 15k</option></select><select id="dTerm"><option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option></select><input id="dAmount" type="number" placeholder="Amount - No limit for Business"><button class="btn" onclick="disburse()">Disburse</button><div id="sched"></div></div></div>
+<div id="tab-collect" class="tab" style="display:none"><div class="card"><h3>Collections</h3><label><input type="checkbox" id="holiday"> Holiday Mode</label><table id="collectTable"><tr><th>Client</th><th>Week</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today (Start 0)</th><th>Balance</th><th>Action</th></tr></table></div></div>
+<div id="tab-mpesa" class="tab" style="display:none"><div class="card"><h3>M-Pesa Official</h3><p><b>Business No: 522533</b></p><p><b>Account: 7755655</b></p><p>M-Pesa > Lipa na M-Pesa > Paybill > 522533 > Account 7755655 > Amount > PIN. Receipt with logo.</p></div></div>
+</div>
+
+<script>
+let clients=[], loans=[];
+try{clients=JSON.parse(localStorage.getItem('nufaika_c')||'[]'); loans=JSON.parse(localStorage.getItem('nufaika_l')||'[]');}catch(e){}
+function doLogin(){document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';refresh();}
+function openTab(t){document.querySelectorAll('.tab').forEach(x=>x.style.display='none');document.getElementById('tab-'+t).style.display='block';document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById('b-'+t).classList.add('active');refresh();}
+function addClient(){
+ let idNo=document.getElementById('cID').value.trim(); let gId=document.getElementById('cGId').value.trim();
+ if(!idNo)return alert('ID required'); if(clients.find(c=>c.idNo===idNo))return alert('Duplicate ID not allowed'); if(gId && clients.find(c=>c.gId===gId))return alert('Guarantor already used');
+ clients.push({id:'CL'+(1000+clients.length),name:document.getElementById('cName').value,idNo,phone:document.getElementById('cPhone').value,gId,gName:document.getElementById('cGName').value});
+ localStorage.setItem('nufaika_c',JSON.stringify(clients));document.getElementById('reg').style.display='none';refresh();alert('Client Added - Admission 500 Receipt with logo - Paybill 522533');
+}
+function disburse(){
+ let cid=document.getElementById('dClient').value; let type=document.getElementById('dType').value; let n=parseInt(document.getElementById('dTerm').value); let P=parseFloat(document.getElementById('dAmount').value);
+ if(!P)return alert('Enter amount'); if(type==='small'&&P>15000)return alert('Max 15000 for small');
+ let r=type==='business'?0.15/n:0.005; let inst=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); let bal=P; let rows=''; let sched=[];
+ for(let w=1;w<=n;w++){let interest=bal*r;let princ=inst-interest;let close=bal-princ; sched.push({week:w,open:bal,inst,interest,princ,close:Math.max(0,close)}); rows+=`<tr><td>${w}</td><td>${bal.toFixed(0)}</td><td>${inst.toFixed(0)}</td><td>${interest.toFixed(0)}</td><td>${princ.toFixed(0)}</td><td>${close.toFixed(0)}</td></tr>`; bal=close;}
+ loans.push({cid,type,P,n,inst,sched,adv:0,over:0,paid:0,fee:type==='business'?P*0.045:P*0.055}); localStorage.setItem('nufaika_l',JSON.stringify(loans));
+ document.getElementById('sched').innerHTML='<p>Fee separate KES '+(type==='business'?P*0.045:P*0.055).toFixed(0)+'</p><table><tr><th>Wk</th><th>Opening</th><th>Instal</th><th>Int</th><th>Princ</th><th>Closing</th></tr>'+rows+'</table>'; refresh();
+}
+function refresh(){
+ let ct=document.getElementById('clientTable'); if(ct){ct.innerHTML='<tr><th>ID</th><th>Name</th><th>ID No</th><th>Phone</th><th>Guarantor</th></tr>'+clients.map(c=>`<tr><td>${c.id}</td><td>${c.name}</td><td>${c.idNo}</td><td>${c.phone}</td><td>${c.gName} ${c.gId}</td></tr>`).join('');}
+ let dc=document.getElementById('dClient'); if(dc)dc.innerHTML=clients.map(c=>`<option value="${c.id}">${c.name} - ${c.idNo}</option>`).join('')||'<option>Register client first</option>';
+ let colt=document.getElementById('collectTable'); if(colt){colt.innerHTML='<tr><th>Client</th><th>Week</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today (Start 0)</th><th>Balance</th><th>Action</th></tr>'+loans.map((l,i)=>{let cl=clients.find(c=>c.id===l.cid);return `<tr><td>${cl?cl.name:l.cid}</td><td>${l.paid+1}/${l.n}</td><td>${l.inst.toFixed(0)}</td><td>${l.adv.toFixed(0)}</td><td>${l.over.toFixed(0)}</td><td><input id="pay${i}" type="number" value="0" style="width:80px"></td><td>${l.sched[l.paid]?l.sched[l.paid].close.toFixed(0):'0'}</td><td><button class="btn" onclick="pay(${i})">Collect</button></td></tr>`}).join('');}
+ document.getElementById('stats').innerHTML='Clients: '+clients.length+' | Loans: '+loans.length+' | Portfolio KES '+loans.reduce((a,b)=>a+b.P,0).toLocaleString()+'<br>Paybill 522533 | Account 7755655';
+}
+function pay(i){let amt=parseFloat(document.getElementById('pay'+i).value||0);let l=loans[i];if(amt<=0)return alert('Enter Today Pay starts 0');if(l.adv>0){let use=Math.min(l.adv,l.inst);l.adv-=use;amt+=use;}if(amt>=l.inst){l.adv+=amt-l.inst;l.paid++;l.over=0;}else{if(!document.getElementById('holiday').checked)l.over+=l.inst-amt;}localStorage.setItem('nufaika_l',JSON.stringify(loans));refresh();alert('Collected! Adv '+l.adv.toFixed(0)+' Overdue '+l.over.toFixed(0));}
+</script></body></html>
