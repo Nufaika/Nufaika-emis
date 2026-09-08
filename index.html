@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nufaika International | N-ERP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div><strong>Nufaika</strong><span>International</span></div>
+      </div>
+      <div class="system-name">N-ERP</div>
+      <nav id="nav">
+        <button class="nav-item active" data-page="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav-item" data-page="clients">♙ <span>Clients</span></button>
+        <button class="nav-item" data-page="loans">▣ <span>Loans</span></button>
+        <button class="nav-item" data-page="collections">↗ <span>Collections</span></button>
+        <button class="nav-item" data-page="reports">◫ <span>Reports</span></button>
+        <button class="nav-item" data-page="admin">⚙ <span>Administration</span></button>
+      </nav>
+      <div class="sidebar-footer">EST. 2026</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <button id="mobileMenu" class="icon-btn">☰</button>
+          <h1 id="pageTitle">Executive Dashboard</h1>
+          <p id="pageSubtitle">Nufaika International management overview</p>
+        </div>
+        <div class="user-chip"><span class="avatar">AM</span><span>Administrator</span></div>
+      </header>
+
+      <section id="content" class="content"></section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
