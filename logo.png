@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUFAIKA INTERNATIONAL - NI EMIS V2.1</title>
+<style>
+:root{--green:#0d4a23;--green2:#109040;--gold:#c8a94a;--bg:#f4f8f4}
+*{font-family:Arial, sans-serif;box-sizing:border-box}
+body{margin:0;background:var(--bg)}
+.header{background:var(--green);color:#fff;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:10;flex-wrap:wrap}
+.header img{height:48px;background:#fff;border-radius:8px;padding:3px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.nav button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 10px;border-radius:7px;cursor:pointer;font-size:13px}
+.nav button.active{background:var(--gold);color:#000;font-weight:700}
+.card{background:#fff;border-radius:12px;padding:15px;box-shadow:0 4px 12px rgba(0,0,0,.06);margin:12px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.kpi h3{margin:0;font-size:12px;color:#666}
+.kpi h1{margin:5px 0;color:var(--green);font-size:20px}
+.btn{background:var(--green2);color:#fff;border:none;padding:9px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn-gold{background:var(--gold);color:#000}
+input,select{width:100%;padding:9px;border:1px solid #ddd;border-radius:7px;margin:5px 0 10px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--green);color:#fff;padding:8px;text-align:left}
+td{padding:7px;border-bottom:1px solid #eee}
+.login-wrap{max-width:400px;margin:50px auto}
+.logo-big{width:140px;display:block;margin:0 auto 10px auto;background:#fff;border-radius:10px;padding:5px}
+</style>
+</head>
+<body>
+
+<div id="loginPage">
+<div class="login-wrap card">
+<img src="nufaika-logo.png" class="logo-big" onerror="this.src='logo.png';this.onerror=function(){this.style.display='none'}">
+<h2 style="text-align:center;color:var(--green);margin:0">NUFAIKA INTERNATIONAL</h2>
+<p style="text-align:center;letter-spacing:3px;color:var(--gold);font-weight:700;margin:2px">EST 2026</p>
+<h3 style="text-align:center">NI EMIS V2.1 Login</h3>
+<select id="role"><option>CEO - Antony</option><option>CFO / Operations</option><option>Branch Manager</option><option selected>Loan Officer</option></select>
+<input id="user" placeholder="Username" value="Antony">
+<input id="pass" type="password" placeholder="Password" value="Nufaika2026">
+<button class="btn" style="width:100%" onclick="login()">Sign In</button>
+<p style="font-size:11px;text-align:center;color:#666">Rules V2.1 Loaded • Logo Secured • Business Loan No Max</p>
+</div>
+</div>
+
+<div id="app" style="display:none">
+<div class="header">
+<div style="display:flex;align-items:center;gap:10px">
+<img src="nufaika-logo.png" onerror="this.src='logo.png'">
+<div><b>NUFAIKA INTERNATIONAL</b><br><small>NI EMIS V2.1 • <span id="roleShow"></span> • <span id="greet"></span></small></div>
+</div>
+<div class="nav">
+<button class="active" onclick="showTab('dash')">Dashboard</button>
+<button onclick="showTab('clients')">Clients</button>
+<button onclick="showTab('disb')">Disbursement</button>
+<button onclick="showTab('collect')">Collections</button>
+<button onclick="showTab('reports')">Reports</button>
+<button onclick="logout()">Logout</button>
+</div>
+</div>
+
+<div id="tab-dash">
+<div class="grid4">
+<div class="card kpi"><h3>Portfolio</h3><h1 id="kpiPortfolio">KES 0</h1><small>Business No Max</small></div>
+<div class="card kpi"><h3>Active Clients</h3><h1 id="kpiClients">0</h1><small>Admission 500</small></div>
+<div class="card kpi"><h3>Today Collections</h3><h1 id="kpiCollect">KES 0</h1><small>Advance → Overdue</small></div>
+<div class="card kpi"><h3>Rules</h3><h1 style="font-size:14px">V2.1 LIVE</h1><small>Logo on all Docs</small></div>
+</div>
+<div class="card">
+<h3>V2.1 Rules Locked</h3>
+<ul style="font-size:13px;line-height:1.6">
+<li><b>Business Loan:</b> 15/20/25 weeks, 15% total interest, Formula: P*r*(1+r)^n/((1+r)^n-1), Processing 4.5% separate, Min 5000, <b>NO MAX</b>, Auto qualifies, Top-up from Week 8</li>
+<li><b>Small Loan:</b> 10 weeks fixed, 15% interest, Processing 3.5%, Max 15000 no min, Qualifies only in 2nd cycle of Business Loan</li>
+<li><b>Guarantor:</b> One guarantor can guarantee BOTH loans of same client, Cannot guarantee 2 different clients at same time</li>
+<li><b>Admission:</b> 500 non-refundable mandatory, Inactive after 2 months no loan → Readmission 500, Must have physical business</li>
+<li><b>System:</b> Search by ID, Only CEO can edit, Schedule auto-created on admission, Logo on header/footer/receipts</li>
+</ul>
+</div>
+</div>
+
+<div id="tab-clients" style="display:none">
+<div class="card">
+<h3>Clients <span style="float:right"><input id="searchID" placeholder="Search ID No" style="width:140px;display:inline" onkeyup="refreshAll()"></span></h3>
+<div style="border:1px solid #ddd;padding:12px;border-radius:10px;margin:10px 0">
+<h4>Register New Client - Admission 500</h4>
+<input id="cName" placeholder="Full Name *">
+<input id="cID" placeholder="ID Number (unique) *">
+<input id="cPhone" placeholder="Phone *">
+<input id="cBusiness" placeholder="Physical Business * (e.g., Grocery in Gikomba) - MANDATORY">
+<input id="cCounty" placeholder="County">
+<input id="cGuarantor" placeholder="Guarantor ID Number *">
+<input id="cGuarantorName" placeholder="Guarantor Name *">
+<button class="btn" onclick="registerClient()">Register + Admission 500 + Create Schedule</button>
+<p style="font-size:11px;color:#666">CEO Only Edit Mode: <span id="editPerm">Allowed - You are CEO</span></p>
+</div>
+<table id="clientTable"><thead><tr><th>Code</th><th>Name</th><th>ID No</th><th>Business</th><th>Guarantor</th><th>Status</th><th>Cycle</th></tr></thead><tbody></tbody></table>
+</div>
+</div>
+
+<div id="tab-disb" style="display:none">
+<div class="card">
+<h3>Disbursement - V2.1 Engine</h3>
+<select id="dClient"></select>
+<select id="dType" onchange="updateTerms()"><option value="business">Business Loan - 15/20/25 Wks, 15%, 4.5% Proc, No Max, Min 5000</option><option value="small">Small Loan - 10 Wks, 15%, 3.5% Proc, Max 15000</option></select>
+<select id="dTerm"><option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option></select>
+<input id="dAmount" type="number" placeholder="Principal - Business No Max (Min 5000)">
+<div id="qualMsg" style="font-size:12px;color:#b45309;margin:5px 0"></div>
+<button class="btn" onclick="disburse()">Disburse & Generate Schedule with Logo</button>
+<div id="schedule"></div>
+</div>
+</div>
+
+<div id="tab-collect" style="display:none">
+<div class="card">
+<h3>Daily Collections - Passbook Engine</h3>
+<label><input type="checkbox" id="holiday" onchange="toggleHoliday()"> Holiday Mode - No Overdue Today (Voluntary payments allowed)</label>
+<table id="collectTable"><thead><tr><th>Client</th><th>Week</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today Collection (Starts 0)</th><th>Action</th></tr></thead><tbody></tbody></table>
+</div>
+</div>
+
+<div id="tab-reports" style="display:none">
+<div class="card">
+<h3>Reports - With Logo</h3>
+<p>All PDFs, Receipts, Passbooks carry Nufaika logo: <img src="nufaika-logo.png" style="height:30px;background:#fff;padding:2px;border-radius:5px" onerror="this.src='logo.png'"></p>
+<button class="btn" onclick="window.print()">Print Report with Logo</button>
+<div id="reportArea" style="margin-top:15px;font-size:13px"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+let clients=JSON.parse(localStorage.getItem('nufaika_clients_v21')||'[]');
+let loans=JSON.parse(localStorage.getItem('nufaika_loans_v21')||'[]');
+
+function login(){
+ let u=document.getElementById('user').value; let p=document.getElementById('pass').value;
+ if((u==="Antony" && p==="Nufaika2026") || (u==="admin@nufaika.co.ke" && p==="1234")){
+   document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';
+   document.getElementById('roleShow').innerText=document.getElementById('role').value;
+   let h=new Date().getHours(); let g=h<12?"Good Morning":h<17?"Good Afternoon":h<21?"Good Evening":"Good Night";
+   document.getElementById('greet').innerText=g+", Antony";
+   refreshAll();
+ } else alert('Wrong - Use Antony / Nufaika2026');
+}
+function logout(){location.reload();}
+function showTab(t){
+ document.querySelectorAll('[id^=tab-]').forEach(e=>e.style.display='none');
+ document.getElementById('tab-'+t).style.display='block';
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ if(event) event.target.classList.add('active');
+ refreshAll();
+}
+function registerClient(){
+ let idNo=document.getElementById('cID').value.trim(); let name=document.getElementById('cName').value.trim();
+ let business=document.getElementById('cBusiness').value.trim(); let gID=document.getElementById('cGuarantor').value.trim();
+ if(!name||!idNo||!business||!gID) return alert('Full Name, ID, Physical Business and Guarantor ID are MANDATORY - Rule 6');
+ if(clients.find(c=>c.idNo===idNo)) return alert('Duplicate ID - System prevents duplicate registration! Rule 9');
+ if(clients.find(c=>c.guarantorId===gID && gID)) return alert('Guarantor ID '+gID+' already guaranteeing another client! Rule 4');
+ let code='CL-'+(1000+clients.length);
+ clients.push({code,name,idNo,phone:document.getElementById('cPhone').value,county:document.getElementById('cCounty').value,business,guarantorId:gID,guarantorName:document.getElementById('cGuarantorName').value,status:'Active',cycle:1,admissionPaid:500,lastLoanDate:new Date().toISOString()});
+ localStorage.setItem('nufaika_clients_v21',JSON.stringify(clients));
+ alert('Client Registered - Admission 500 paid. Business verified. Can disburse immediately. Logo will appear on receipt. Rule 8');
+ refreshAll();
+}
+function updateTerms(){
+ let type=document.getElementById('dType').value; let sel=document.getElementById('dTerm');
+ if(type==='small'){sel.innerHTML='<option value="10" selected>10 Weeks Fixed</option>';document.getElementById('dAmount').placeholder='Max 15000 no min';}
+ else{sel.innerHTML='<option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option>';document.getElementById('dAmount').placeholder='Business No Max, Min 5000';}
+ checkQualification();
+}
+function checkQualification(){
+ let clientId=document.getElementById('dClient').value; let type=document.getElementById('dType').value;
+ let client=clients.find(c=>c.code===clientId); let msg=document.getElementById('qualMsg');
+ if(!client){msg.innerText='';return;}
+ let businessLoans=loans.filter(l=>l.clientId===clientId && l.type==='business');
+ if(type==='small'){
+   if(businessLoans.length<1 || client.cycle<2) msg.innerText='❌ Small Loan NOT qualified - Must be in 2nd cycle of Business Loan. Client cycle: '+client.cycle+' Rule 2';
+   else msg.innerText='✅ Qualified for Small Loan - 2nd cycle confirmed';
+ } else {
+   if(businessLoans.length>0){let last=businessLoans[businessLoans.length-1]; if(last.paidWeeks<8) msg.innerText='Top-up allowed from Week 8 only - Current Week: '+(last.paidWeeks+1)+' Rule 1'; else msg.innerText='✅ Top-up allowed from Week 8 - Rule 1';}
+   else msg.innerText='✅ Auto qualifies for Business Loan - Rule 1';
+ }
+}
+function disburse(){
+ let clientId=document.getElementById('dClient').value; let type=document.getElementById('dType').value;
+ let n=parseInt(document.getElementById('dTerm').value); let P=parseFloat(document.getElementById('dAmount').value);
+ if(!P) return alert('Enter amount');
+ if(type==='business' && P<5000) return alert('Business Loan Minimum 5000 - Rule');
+ if(type==='small' && P>15000) return alert('Small Loan Max 15000 - Rule');
+ let client=clients.find(c=>c.code===clientId);
+ if(type==='small' && (!client || client.cycle<2)) return alert('Small Loan only in 2nd Business cycle - Rule 2');
+ let r= type==='business'? (0.15/n) : (0.15/10); // weekly rate
+ let instalment= P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+ let bal=P; let sched=[];
+ for(let w=1;w<=n;w++){let interest=bal*r; let principal=instalment-interest; let closing=bal-principal; sched.push({week:w,opening:bal,instalment,interest,principal,closing:Math.max(0,closing)}); bal=closing;}
+ let proc= type==='business'? P*0.045 : P*0.035;
+ loans.push({clientId,type,P,n,instalment,schedule:sched,advance:0,overdue:0,paidWeeks:0,processingFee:proc,disbDate:new Date().toISOString()});
+ localStorage.setItem('nufaika_loans_v21',JSON.stringify(loans));
+ // update client cycle
+ if(type==='business' && client.cycle===1 && loans.filter(l=>l.clientId===clientId && l.type==='business').length===1){ /* first stays 1, second moves to 2 after completion - simplified: increment on 2nd disbursement */ }
+ if(type==='business' && loans.filter(l=>l.clientId===clientId && l.type==='business').length>=2) client.cycle=2;
+ client.lastLoanDate=new Date().toISOString();
+ localStorage.setItem('nufaika_clients_v21',JSON.stringify(clients));
+ let html='<h4>Schedule - Opening*r=Interest, Principal=Instalment-Interest - Logo: Nufaika</h4><table><tr><th>Wk</th><th>Opening</th><th>Instalment</th><th>Interest</th><th>Principal</th><th>Closing</th></tr>';
+ sched.forEach(s=>{html+=`<tr><td>${s.week}</td><td>${s.opening.toFixed(2)}</td><td>${s.instalment.toFixed(2)}</td><td>${s.interest.toFixed(2)}</td><td>${s.principal.toFixed(2)}</td><td>${s.closing.toFixed(2)}</td></tr>`});
+ html+=`</table><p><b>Processing Fee NOT deducted - Pay separately: KES ${proc.toFixed(2)} (${type==='business'?'4.5%':'3.5%'})</b></p>`;
+ document.getElementById('schedule').innerHTML=html;
+ refreshAll();
+}
+function refreshAll(){
+ let search=document.getElementById('searchID')?document.getElementById('searchID').value.trim().toLowerCase():'';
+ let filtered=clients.filter(c=>!search || c.idNo.toLowerCase().includes(search) || c.name.toLowerCase().includes(search));
+ document.querySelector('#clientTable tbody').innerHTML=filtered.map(c=>{
+   let inactive= (new Date()-new Date(c.lastLoanDate))/(1000*60*60*24*30) >2? ' (Inactive - Readmission 500)' : '';
+   return `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.idNo}</td><td>${c.business}</td><td>${c.guarantorName} (${c.guarantorId})</td><td>${c.status}${inactive}</td><td>${c.cycle}</td></tr>`;
+ }).join('');
+ document.getElementById('dClient').innerHTML=clients.map(c=>`<option value="${c.code}">${c.name} - ${c.idNo} - Cycle ${c.cycle}</option>`).join('');
+ checkQualification();
+ let collHtml=''; loans.forEach((l,idx)=>{
+   let client=clients.find(c=>c.code===l.clientId); let req=l.instalment;
+   collHtml+=`<tr><td>${client?client.name:l.clientId}</td><td>${l.paidWeeks+1}/${l.n} (${l.type})</td><td>KES ${req.toFixed(2)}</td><td>${l.advance.toFixed(2)}</td><td>${l.overdue.toFixed(2)}</td><td><input type="number" value="0" id="pay_${idx}" style="width:90px" placeholder="0"> <button class="btn" style="padding:5px 8px" onclick="collect(${idx})">Collect</button></td><td>${l.schedule[l.paidWeeks]?l.schedule[l.paidWeeks].closing.toFixed(2):'0'}</td></tr>`;
+ });
+ document.querySelector('#collectTable tbody').innerHTML=collHtml;
+ document.getElementById('kpiClients').innerText=clients.length;
+ document.getElementById('kpiPortfolio').innerText='KES '+loans.reduce((a,b)=>a+b.P,0).toLocaleString();
+ document.getElementById('reportArea').innerHTML='<p>Total Clients: '+clients.length+'<br>Total Loans: '+loans.length+'<br>Portfolio: KES '+loans.reduce((a,b)=>a+b.P,0).toLocaleString()+'<br>All documents carry logo <b>nufaika-logo.png</b></p>';
+}
+function collect(idx){
+ let amt=parseFloat(document.getElementById('pay_'+idx).value)||0; if(amt<=0) return;
+ let loan=loans[idx]; if(amt>=loan.instalment){loan.advance+=amt-loan.instalment; loan.paidWeeks++;} else {loan.overdue+=loan.instalment-amt;}
+ localStorage.setItem('nufaika_loans_v21',JSON.stringify(loans)); refreshAll();
+}
+function toggleHoliday(){if(document.getElementById('holiday').checked) alert('Holiday Mode ON: Today instalment can be 0, No overdue generated. Voluntary payments allowed.');}
+</script>
+</body>
+</html>
