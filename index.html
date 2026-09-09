@@ -1,99 +1,34 @@
 
 <?php
-session_start();
+// Auto Greeting based on time
 date_default_timezone_set('Africa/Nairobi');
 $hour = date('H');
-if($hour < 12) $greet = "Good Morning";
-elseif($hour < 17) $greet = "Good Afternoon";
-elseif($hour < 21) $greet = "Good Evening";
+if ($hour < 12) $greet = "Good Morning";
+elseif ($hour < 17) $greet = "Good Afternoon";
+elseif ($hour < 21) $greet = "Good Evening";
 else $greet = "Good Night";
 
+// Inspirational quotes - hope, progress, growth
 $quotes = [
- "Planting hope, nurturing progress, growing futures.",
- "Small steps today, thriving businesses tomorrow.",
- "Empowering dreams, one business at a time.",
- "Growth is not by chance, but by choice and commitment.",
- "Together we rise — Nufaika, building brighter tomorrows.",
- "From small seeds, great enterprises grow.",
- "Progress is our promise, hope is our product."
+  "Planting hope, nurturing progress, growing futures.",
+  "Small steps today, thriving businesses tomorrow.",
+  "Empowering dreams, one business at a time.",
+  "Growth is not by chance, but by choice and commitment.",
+  "Together we rise — Nufaika, building brighter tomorrows.",
+  "From small seeds, great enterprises grow.",
+  "Progress is our promise, hope is our product."
 ];
 $quote = $quotes[array_rand($quotes)];
-$user = $_SESSION['username'] ?? 'Antony';
 ?>
-<div style="text-align:center;background:#fff;padding:25px;border-radius:15px;">
-  <img src="uploads/nufaika-logo.png" style="width:210px;margin:auto;display:block;">
-  <h1 style="color:#0e4d27;margin-top:15px;"><?php echo $greet; ?>, <?php echo $user; ?>!</h1>
-  <p style="color:#666;"><?php echo date('l, j F Y'); ?> • Ready to drive growth today.</p>
-  <div style="background:linear-gradient(135deg,#f0f9e8,#fef9e0);padding:18px;border-radius:12px;max-width:700px;margin:15px auto;box-shadow:0 4px 10px rgba(0,0,0,0.07);">
-    <h3 style="color:#0e4d27;margin:0;"><?php echo $quote; ?></h3>
-    <small>At Nufaika International, every small step fuels lasting change.</small><br>
-    <small style="color:#b8962e;">EST 2026 • Empowering Microfinance Since 2026</small>
+
+<div class="welcome-screen" style="text-align:center; padding:30px; background:#fff;">
+  <img src="assets/nufaika-logo.png" style="width:220px; margin:auto;">
+  <h1 style="color:#0a4d2a; margin-top:15px;"><?php echo $greet; ?>, Antony!</h1>
+  <p style="color:#666;">Here's your overview for <?php echo date('l, j F Y'); ?> • Ready to drive growth today.</p>
+  
+  <div style="background:linear-gradient(135deg,#f6fdf0,#fff9e6); border-radius:15px; padding:20px; margin:20px auto; max-width:700px; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+    <h3 style="color:#0a4d2a;"><?php echo $quote; ?></h3>
+    <small>At Nufaika International, every small step fuels lasting change — empowering communities, building resilience.</small><br>
+    <small style="color:#b89a3d;">EST 2026 • Empowering Microfinance Since 2026</small>
   </div>
 </div>
-<!-- AUTO FIELDS -->
-<input type="text" name="branch" value="Nufaika Branch" readonly style="background:#eef6e8;font-weight:bold;">
-<input type="text" name="loan_officer" value="Antony Mukeku" readonly style="background:#eef6e8;font-weight:bold;">
-<input type="text" name="id_number" id="search_id" required placeholder="Search by ID Number" onkeyup="searchClient(this.value)">
-<input type="text" name="physical_business" required placeholder="Physical Business *">
-
-<!-- BACKEND ON SAVE -->
-<?php
-$admission_fee = 500; // auto-counted, not shown
-$branch = "Nufaika Branch";
-$officer = "Antony Mukeku";
-// Inactive check - 2 months no loan = readmission 500
-$last = mysqli_fetch_assoc(mysqli_query($conn,"SELECT MAX(disbursed_date) as ld FROM loans WHERE client_id='$client_id'"))['ld'];
-if($last && $last < date('Y-m-d', strtotime('-2 months'))){
-  $admission_fee = 500;
-}
-// Auto insert to admissions
-mysqli_query($conn,"INSERT INTO admissions_report(client_id,amount,branch,date) VALUES('$client_id','$admission_fee','$branch',NOW())");
-<input type="text" value="Nufaika Branch" readonly name="branch">
-<input type="text" value="Antony Mukeku" readonly name="loan_officer">
-<input type="text" name="client_id" required placeholder="Client ID - searchable" list="clients">
-<select name="product" id="product" onchange="setDuration()" required>
-  <option value="">Select Product</option>
-  <option value="Business Loan">Business Loan</option>
-  <option value="Small Loan">Small Loans</option>
-</select>
-<select name="duration" id="duration" required></select>
-<input type="number" name="amount" id="amount" required placeholder="Amount">
-
-<script>
-function setDuration(){
-  let p=document.getElementById('product').value;
-  let d=document.getElementById('duration');
-  if(p=="Business Loan") d.innerHTML='<option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option>';
-  else if(p=="Small Loan") d.innerHTML='<option value="10" selected>10 Weeks (Auto)</option>';
-}
-</script>
-<?php
-$product = $_POST['product'];
-$amount = $_POST['amount'];
-$duration = $_POST['duration'];
-$guarantor_id = $_POST['guarantor_id'];
-$client_id = $_POST['client_id'];
-
-// Rule 1: Business min 5000
-if($product=="Business Loan" && $amount < 5000) die("ERROR: Business Loan min is 5000");
-// Rule 2: Small max 15000
-if($product=="Small Loan" && $amount > 15000) die("ERROR: Small Loan max is 15000");
-// Rule 3: Small only 2nd cycle
-$paid_business = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as c FROM loans WHERE client_id='$client_id' AND product='Business Loan' AND status IN('Paid','Closed')"))['c'];
-if($product=="Small Loan" && $paid_business < 1) die("ERROR: Small Loan only for 2nd cycle clients");
-// Rule 4: Guarantor cannot guarantee 2 active DIFFERENT clients
-$checkG = mysqli_query($conn,"SELECT * FROM loans WHERE guarantor_id='$guarantor_id' AND status='Active' AND client_id != '$client_id'");
-if(mysqli_num_rows($checkG) > 0) die("ERROR: Guarantor already guaranteeing another active client");
-// Rule 5: Processing auto
-$processing = ($product=="Business Loan") ? $amount*0.045 : $amount*0.035;
-$interest = $amount*0.15;
-// Rule 6: Schedule auto
-// After loan insert -> create schedule
-// Rule 7: Top-up only Week 8 - in view file:
-if($current_week >= 8) { echo "Top-up Allowed"; }
-
-// Final insert with auto branch/officer
-$branch = "Nufaika Branch";
-$officer = "Antony Mukeku";
-?>
-?>
