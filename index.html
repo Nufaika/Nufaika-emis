@@ -1,94 +1,148 @@
 
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>NUFAIKA INTERNATIONAL</title>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUFAIKA INTERNATIONAL</title>
 <style>
-*{font-family:Arial;box-sizing:border-box}body{margin:0;background:#f4f8f4}
-.header{background:#0d4a23;color:#fff;padding:12px;border-bottom:4px solid #c8a94a}
-.nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
-.nav button{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:8px 10px;border-radius:6px;cursor:pointer;font-size:12px}
-.nav button.active{background:#c8a94a;color:#000;font-weight:700}
-.card{background:#fff;border-radius:10px;padding:14px;margin:12px;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
-input,select{width:100%;padding:9px;border:1px solid #ddd;border-radius:6px;margin:5px 0 10px 0}
-table{width:100%;border-collapse:collapse;font-size:13px}th{background:#0d4a23;color:#fff;padding:7px;text-align:left}td{padding:6px;border-bottom:1px solid #eee}
-.btn{background:#0d4a23;color:#fff;border:none;padding:8px 14px;border-radius:6px;font-weight:700;cursor:pointer}
-.page{display:none}.page.active{display:block}
-</style></head><body>
-<div class="header">
-<div style="display:flex;align-items:center;gap:10px"><img src="nufaika-logo.png" style="height:40px;background:#fff;border-radius:6px;padding:3px" onerror="this.src='logo.png'"><div><b>NUFAIKA INTERNATIONAL</b> EST 2026<br><small>Nufaika Branch | Antony Mukeku | <span id="dateNow"></span></small></div></div>
-<div class="nav">
-<button id="btn-dash" class="active" onclick="showTab('dash','btn-dash')">Dashboard</button>
-<button id="btn-members" onclick="showTab('members','btn-members')">Member</button>
-<button id="btn-loanacc" onclick="showTab('loanacc','btn-loanacc')">Loan Account</button>
-<button id="btn-view" onclick="showTab('view','btn-view')">View Loan Account</button>
-<button id="btn-group" onclick="showTab('group','btn-group')">Group Transaction Sheet</button>
-<button id="btn-bal" onclick="showTab('bal','btn-bal')">Programs Balance Sheet</button>
-<button id="btn-branch" onclick="showTab('branch','btn-branch')">Branch Report</button>
-<button id="btn-prog" onclick="showTab('prog','btn-prog')">Programs Report</button>
-</div>
+body{margin:0;background:#f4f8f4;font-family:Arial}
+.top{background:#0d4a23;color:white;padding:10px}
+.top h2{margin:0;font-size:18px}
+.top small{font-size:12px}
+.menu{background:#0d4a23;padding:8px;display:flex;flex-wrap:wrap;gap:6px}
+.menu button{background:white;color:#0d4a23;border:none;padding:8px 12px;border-radius:5px;cursor:pointer;font-size:12px;font-weight:bold}
+.menu button.active{background:#c8a94a;color:black}
+.box{background:white;margin:10px;padding:12px;border-radius:8px}
+input,select{width:100%;padding:8px;margin:4px 0;border:1px solid #ccc;border-radius:5px}
+table{width:100%;border-collapse:collapse;font-size:12px}th{background:#0d4a23;color:white;padding:6px}td{padding:6px;border-bottom:1px solid #eee}
+.btn{background:#0d4a23;color:white;border:none;padding:8px 12px;border-radius:5px;cursor:pointer}
+.hide{display:none}
+</style>
+</head>
+<body>
+
+<div class="top">
+<h2>NUFAIKA INTERNATIONAL EST 2026</h2>
+<small>Nufaika Branch | Antony Mukeku | <span id="d"></span></small>
 </div>
 
-<div id="dash" class="page active"><div class="card"><h2 id="greet"></h2><p>Planting hope, nurturing progress, growing futures.</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div>Portfolio: <b id="kPort">KES 0</b></div><div>Clients: <b id="kCli">0</b></div><div>Branch Disbursed: <b id="kDis">KES 0</b></div><div>Admissions: <b id="kAdm">0</b></div></div></div></div>
-
-<div id="members" class="page"><div class="card">
-<h3>Member</h3>
-<div style="background:#fafafa;padding:10px;border-radius:8px;border:1px solid #eee">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Enter ID No or Full Names</label><input id="searchM" placeholder="ID or Full Name"></div><div><label>Backdate</label><input type="date" id="backdateFilter"></div></div>
-<button class="btn" onclick="refreshAll()">Search & Refresh</button>
+<div class="menu">
+<button id="b1" class="active" onclick="openPage('p1','b1')">Dashboard</button>
+<button id="b2" onclick="openPage('p2','b2')">Member</button>
+<button id="b3" onclick="openPage('p3','b3')">Loan Account</button>
+<button id="b4" onclick="openPage('p4','b4')">View Loan Account</button>
+<button id="b5" onclick="openPage('p5','b5')">Group Sheet</button>
+<button id="b6" onclick="openPage('p6','b6')">Balance Sheet</button>
+<button id="b7" onclick="openPage('p7','b7')">Branch Report</button>
+<button id="b8" onclick="openPage('p8','b8')">Programs Report</button>
 </div>
-<table id="memTable"><thead><tr><th>Code</th><th>Name</th><th>ID No</th><th>Active</th><th>Branch</th><th>Group</th><th>Admission Date</th><th>Last Disbursed</th><th>Business</th></tr></thead><tbody></tbody></table>
+
+<div id="p1" class="box"><h3 id="greet">Welcome Antony!</h3><p>Portfolio: <b id="k1">0</b> | Clients: <b id="k2">0</b> | Disbursed: <b id="k3">0</b></p></div>
+
+<div id="p2" class="box hide">
+<h3>Member - Search by ID or Name + Backdate</h3>
+<input id="s" placeholder="Enter ID No or Full Name" onkeyup="load()">
+<input type="date" id="bd" onchange="load()">
+<button class="btn" onclick="load()">Search & Refresh</button>
+<table id="tMem"><thead><tr><th>Code</th><th>Name</th><th>ID</th><th>Active</th><th>Branch</th><th>Group</th><th>Admission</th><th>Last Amount</th><th>Business</th></tr></thead><tbody></tbody></table>
 <h4>Add Member</h4>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-<input id="mName" placeholder="Name as per ID *"><input id="mID" placeholder="ID Number *">
-<input id="mGroup" placeholder="Group"><input id="mPass" placeholder="Passbook No">
-<input id="mPhone" placeholder="Client Contact"><input id="mRes" placeholder="Residence">
-<input id="mBus" placeholder="Business Location *"><input id="mKin" placeholder="Next of Kin + Contact">
-<input id="mGName" placeholder="Guarantor Name"><input id="mGID" placeholder="Guarantor ID + Contact">
-</div><input type="date" id="mBackdate"><button class="btn" onclick="saveMember()">Save Member</button>
-</div></div>
+<input id="m1" placeholder="Name as per ID *"><input id="m2" placeholder="ID Number *">
+<input id="m3" placeholder="Group"><input id="m4" placeholder="Passbook No">
+<input id="m5" placeholder="Phone"><input id="m6" placeholder="Residence">
+<input id="m7" placeholder="Business Location *"><input id="m8" placeholder="Next of Kin + Contact">
+<input id="m9" placeholder="Guarantor Name"><input id="m10" placeholder="Guarantor ID + Contact">
+<input type="date" id="m11">
+<button class="btn" onclick="addM()">Save Member</button>
+</div>
 
-<div id="loanacc" class="page"><div class="card">
+<div id="p3" class="box hide">
 <h3>Loan Account</h3>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-<div><label>Branch</label><input value="Nufaika Branch" readonly></div><div><label>Loan Officer</label><input value="Antony Mukeku" readonly></div>
-<div><label>Group</label><select id="lGroup"><option>Blessing Group</option><option>Upendo Group</option><option>Neema Group</option></select></div><div><label>Client</label><select id="lClient" onchange="fillLoan()"></select></div>
-<div><label>Product</label><select id="lProduct" onchange="calcProc()"><option value="business">Business Loan</option><option value="small">Small Loan</option></select></div><div><label>Period</label><select id="lPeriod"><option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option><option value="10">10 Weeks</option></select></div>
-<div><label>Amount</label><input id="lAmount" type="number" onkeyup="calcProc()"><b id="procShow" style="color:#0d4a23">Processing Fee: KES 0</b></div><div><label>Client No</label><input id="lClientNo" readonly><label>Guarantor No & ID</label><input id="lGuarNo" readonly><input id="lIDNo" readonly></div>
-</div><button class="btn" onclick="disburse()">Disburse</button><div id="sched"></div>
-<p>Branch Total Disbursed: <b id="branchDisb">0</b></p>
-</div></div>
+<label>Branch</label><input value="Nufaika Branch" readonly>
+<label>Loan Officer</label><input value="Antony Mukeku" readonly>
+<label>Group</label><select id="lg"><option>Blessing Group</option><option>Upendo Group</option><option>Neema Group</option></select>
+<label>Client</label><select id="lc" onchange="fill()"></select>
+<label>Product</label><select id="lp" onchange="calc()"><option value="business">Business Loan</option><option value="small">Small Loan</option></select>
+<label>Period</label><select id="lpe"><option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option><option value="10">10 Weeks</option></select>
+<label>Amount</label><input id="la" type="number" onkeyup="calc()">
+<b id="pr" style="color:#0d4a23">Processing: KES 0</b>
+<label>Client No</label><input id="lcn" readonly>
+<label>Guarantor No</label><input id="lgn" readonly>
+<label>ID No</label><input id="lid" readonly>
+<button class="btn" onclick="disb()">Disburse</button>
+<div id="sc"></div>
+<p>Total Disbursed: <b id="tot">0</b></p>
+</div>
 
-<div id="view" class="page"><div class="card">
-<h3>View Loan Account - Print Loan Schedule</h3>
-<select id="loanSelect" onchange="loadLoanView()"></select> <button class="btn" onclick="window.print()">Print</button>
-<table><tr><td style="background:#e8f0e8;width:140px"><b>Loan Officer</b></td><td><input id="vOfficer" value="Antony Mukeku Mueni"></td><td style="background:#e8f0e8;width:140px"><b>Group</b></td><td><input id="vGroup2"></td></tr>
-<tr><td style="background:#e8f0e8"><b>Member</b></td><td><input id="vMember"></td><td style="background:#e8f0e8"><b>Disburse Date</b></td><td><input id="vDisbDate"></td></tr>
-<tr><td style="background:#e8f0e8"><b>Principal</b></td><td><input id="vPrincipal"></td><td style="background:#e8f0e8"><b>Processing Fee</b></td><td><input id="vProc2"></td></tr>
-<tr><td style="background:#e8f0e8"><b>Interest 15%</b></td><td><input id="vInt"></td><td style="background:#e8f0e8"><b>Total</b></td><td><input id="vTotal"></td></tr>
-<tr><td style="background:#e8f0e8"><b>Outstanding</b></td><td><input id="vOut"></td><td style="background:#e8f0e8"><b>Status</b></td><td><input value="OPEN"></td></tr>
-</table>
-<table id="schedTable" style="margin-top:10px;font-size:11px"><thead><tr><th>#</th><th>Date</th><th>Principal</th><th>Interest</th><th>Total</th><th>Paid</th><th>Out</th></tr></thead><tbody></tbody></table>
-</div></div>
+<div id="p4" class="box hide">
+<h3>View Loan Account - Print Schedule</h3>
+<select id="ls" onchange="viewL()"></select> <button class="btn" onclick="window.print()">Print</button>
+<table><tr><td>Member</td><td><input id="vm"></td><td>Group</td><td><input id="vg"></td></tr>
+<tr><td>Principal</td><td><input id="vp"></td><td>Processing</td><td><input id="vpr"></td></tr>
+<tr><td>Interest</td><td><input id="vi"></td><td>Total</td><td><input id="vt"></td></tr>
+<tr><td>Outstanding</td><td><input id="vo"></td><td>Status</td><td><input value="OPEN"></td></tr></table>
+<table id="st" style="margin-top:10px"><thead><tr><th>#</th><th>Date</th><th>Prin</th><th>Int</th><th>Total</th><th>Out</th></tr></thead><tbody></tbody></table>
+</div>
 
-<div id="group" class="page"><div class="card"><h3>Group Transaction Sheet</h3><p>Antony Mukeku - LO001 | <span id="gDate"></span> | Nufaika Branch</p><input id="gGroup" placeholder="Enter Group Name" onkeyup="loadGroup()"><table id="gTable"><thead><tr><th>Member</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today</th><th>Realize</th></tr></thead><tbody></tbody></table></div></div>
-
-<div id="bal" class="page"><div class="card"><h3>Programs Balance Sheet</h3><table id="balTable"><thead><tr><th>Officer</th><th>Borrowers</th><th>Principle Out</th><th>Loan Out</th><th>Overdue</th><th>Advance</th></tr></thead><tbody></tbody></table></div></div>
-
-<div id="branch" class="page"><div class="card"><h3>Branch Report</h3><table id="branchTable"><thead><tr><th>Officer</th><th>Realizable</th><th>Realized</th><th>Processing</th><th>Admissions</th></tr></thead><tbody></tbody></table></div></div>
-
-<div id="prog" class="page"><div class="card"><h3>Programs Report</h3><div id="progArea"></div></div></div>
+<div id="p5" class="box hide"><h3>Group Transaction Sheet</h3><p>Antony Mukeku LO001 | Nufaika Branch | <span id="gd"></span></p><input id="gg" placeholder="Group Name" onkeyup="loadG()"><table id="tg"><thead><tr><th>Member</th><th>Required</th><th>Today</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+<div id="p6" class="box hide"><h3>Balance Sheet</h3><table id="tb"><thead><tr><th>Officer</th><th>Borrowers</th><th>Prin Out</th><th>Loan Out</th></tr></thead><tbody></tbody></table></div>
+<div id="p7" class="box hide"><h3>Branch Report</h3><table id="tbr"><thead><tr><th>Officer</th><th>Realizable</th><th>Realized</th><th>Processing</th></tr></thead><tbody></tbody></table></div>
+<div id="p8" class="box hide"><h3>Programs Report</h3><div id="prg"></div></div>
 
 <script>
-let clients=JSON.parse(localStorage.getItem('nufaika_v3_clients')||'[]');
-let loans=JSON.parse(localStorage.getItem('nufaika_v3_loans')||'[]');
-document.getElementById('dateNow').innerText=new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-document.getElementById('gDate').innerText=new Date().toLocaleDateString();
-let h=new Date().getHours();let gg=h<12?'Good Morning':h<17?'Good Afternoon':h<21?'Good Evening':'Good Night';document.getElementById('greet').innerText=gg+', Antony!';
-function showTab(id,btnId){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById(btnId).classList.add('active');refreshAll();}
-function saveMember(){let idNo=document.getElementById('mID').value.trim();if(!idNo||!document.getElementById('mName').value.trim()||!document.getElementById('mBus').value.trim())return alert('Name, ID, Business required');if(clients.find(c=>c.idNo===idNo))return alert('Duplicate ID');clients.push({code:'CL-'+(1000+clients.length),name:document.getElementById('mName').value,idNo,group:document.getElementById('mGroup').value||'Blessing Group',passbook:document.getElementById('mPass').value,phone:document.getElementById('mPhone').value,residence:document.getElementById('mRes').value,business:document.getElementById('mBus').value,kin:document.getElementById('mKin').value,gName:document.getElementById('mGName').value,gID:document.getElementById('mGID').value,branch:'Nufaika Branch',officer:'Antony Mukeku',admissionDate:document.getElementById('mBackdate').value||new Date().toISOString().split('T')[0],status:'Active',cycle:1,lastDisb:0});localStorage.setItem('nufaika_v3_clients',JSON.stringify(clients));refreshAll();}
-function fillLoan(){let c=clients.find(x=>x.code===document.getElementById('lClient').value);if(!c)return;document.getElementById('lClientNo').value=c.phone;document.getElementById('lGuarNo').value=c.gID;document.getElementById('lIDNo').value=c.idNo;}
-function calcProc(){let amt=parseFloat(document.getElementById('lAmount').value)||0;let prod=document.getElementById('lProduct').value;let proc=prod==='business'?amt*0.045:amt*0.035;document.getElementById('procShow').innerText='Processing Fee: KES '+proc.toFixed(2);}
-function disburse(){let clientCode=document.getElementById('lClient').value;let amt=parseFloat(document.getElementById('lAmount').value);let prod=document.getElementById('lProduct').value;let n=parseInt(document.getElementById('lPeriod').value);if(!clientCode||!amt)return alert('Select client and amount');let client=clients.find(c=>c.code===clientCode);let r=0.15/n;let inst=amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);let bal=amt;let sched=[];for(let w=1;w<=n;w++){let interest=bal*r;let princ=inst-interest;let clos=bal-princ;sched.push({w,open:bal,inst,interest,princ,close:Math.max(0,clos)});bal=clos;}let proc=prod==='business'?amt*0.045:amt*0.035;loans.push({clientCode,product:prod,amt,n,inst,sched,proc,branch:'Nufaika Branch',officer:'Antony Mukeku',group:document.getElementById('lGroup').value,advance:0,overdue:0,paidWeeks:0,date:new Date().toISOString()});client.lastDisb=amt;if(loans.filter(l=>l.clientCode===clientCode).length>=2)client.cycle=2;localStorage.setItem('nufaika_v3_loans',JSON.stringify(loans));localStorage.setItem('nufaika_v3_clients',JSON.stringify(clients));refreshAll();}
-function loadGroup(){let g=(document.getElementById('gGroup').value||'').toLowerCase();let filtered=loans.filter(l=>l.group.toLowerCase().includes(g));let html='';filtered.forEach(l=>{let cl=clients.find(c=>c.code===l.clientCode);html+=`<tr><td>${cl?cl.name:l.clientCode}</td><td>${l.inst.toFixed(0)}</td><td>${l.advance.toFixed(0)}</td><td>${l.overdue.toFixed(0)}</td><td><input id="today_${loans.indexOf(l)}" value="0" style="width:70px"></td><td><button class="btn" onclick="realize(${loans.indexOf(l)})">Realize</button></td></tr>`});document.querySelector('#gTable tbody').innerHTML=html;}
-function realize(idx){let el=document.getElementById('today_'+idx);let v=parseFloat(el?el.value:0)||0;if(v<=0)return;if(v>=loans[idx].inst){loans[idx].advance+=v-loans[idx].inst;loans[idx].paidWeeks++;}else loans[idx].overdue+=loans[idx].inst-v;localStorage.setItem('nufaika_v3_loans',JSON.stringify(loans));loadGroup();refreshAll();}
-function loadLoanView(){let idx=document.getElementById('loanSelect').value||0;let l=loans[idx];if(!l)return;let c=clients.find(x=>x.code===l.clientCode)||{};document.getElementById('vMember').value=c.name||'';document.getElementById('vGroup2').value=l.group;document.getElementById('vPrincipal').value=l.amt;document.getElementById('vProc2').value=l.proc.toFixed(0);document.getElementById('vInt').value=(l.amt*0.15).toFixed(0);document.getElementById('vTotal').value=(l.amt*1.15).toFixed(0);document.getElementById('vOut').value=(l.sched[l.paidWeeks]?l.sched[l.paidWeeks].close:0).toFixed(0);let tb=document.querySelector('#schedTable tbody');tb.innerHTML='';let start=new Date(l.date);l.sched.forEach((s,i)=>{let d=new Date(start);d.setDate(d.getDate()+(i+1)*7);tb.innerHTML+=`<tr>
+let C=JSON.parse(localStorage.getItem('nufaika_c')||'[]');
+let L=JSON.parse(localStorage.getItem('nufaika_l')||'[]');
+document.getElementById('d').innerText=new Date().toLocaleDateString();
+document.getElementById('gd').innerText=new Date().toLocaleDateString();
+let hh=new Date().getHours();document.getElementById('greet').innerText=(hh<12?'Good Morning':hh<17?'Good Afternoon':'Good Evening')+', Antony!';
+
+function openPage(pid,bid){
+ document.querySelectorAll('.box').forEach(b=>b.classList.add('hide'));
+ document.getElementById(pid).classList.remove('hide');
+ document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
+ document.getElementById(bid).classList.add('active');
+ load();
+}
+
+function addM(){
+ let id=document.getElementById('m2').value.trim();
+ if(!id||!document.getElementById('m1').value.trim()||!document.getElementById('m7').value.trim()) return alert('Name, ID, Business required');
+ if(C.find(x=>x.idNo===id)) return alert('Duplicate ID');
+ C.push({code:'CL-'+(1000+C.length),name:document.getElementById('m1').value,idNo:id,group:document.getElementById('m3').value||'Blessing Group',passbook:document.getElementById('m4').value,phone:document.getElementById('m5').value,res:document.getElementById('m6').value,bus:document.getElementById('m7').value,kin:document.getElementById('m8').value,gname:document.getElementById('m9').value,gid:document.getElementById('m10').value,branch:'Nufaika Branch',officer:'Antony Mukeku',admission:document.getElementById('m11').value||new Date().toISOString().split('T')[0],last:0});
+ localStorage.setItem('nufaika_c',JSON.stringify(C));load();
+}
+
+function fill(){let c=C.find(x=>x.code===document.getElementById('lc').value);if(!c)return;document.getElementById('lcn').value=c.phone;document.getElementById('lgn').value=c.gid;document.getElementById('lid').value=c.idNo;}
+function calc(){let a=parseFloat(document.getElementById('la').value)||0;let p=document.getElementById('lp').value;let proc=p==='business'?a*0.045:a*0.035;document.getElementById('pr').innerText='Processing: KES '+proc.toFixed(2);}
+function disb(){
+ let code=document.getElementById('lc').value;let amt=parseFloat(document.getElementById('la').value);let prod=document.getElementById('lp').value;let n=parseInt(document.getElementById('lpe').value);
+ if(!code||!amt) return alert('Select client and amount');
+ let r=0.15/n;let inst=amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);let bal=amt;let sched=[];for(let i=1;i<=n;i++){let intr=bal*r;let princ=inst-intr;let clos=bal-princ;sched.push({i,open:bal,inst,intr,princ,close:Math.max(0,clos)});bal=clos;}
+ let proc=prod==='business'?amt*0.045:amt*0.035;
+ L.push({code,amt,n,inst,sched,proc,group:document.getElementById('lg').value,advance:0,overdue:0,paid:0,date:new Date().toISOString()});
+ let cl=C.find(x=>x.code===code);if(cl)cl.last=amt;
+ localStorage.setItem('nufaika_l',JSON.stringify(L));localStorage.setItem('nufaika_c',JSON.stringify(C));load();
+}
+function loadG(){let g=(document.getElementById('gg').value||'').toLowerCase();let f=L.filter(x=>x.group.toLowerCase().includes(g));let h='';f.forEach(x=>{let c=C.find(z=>z.code===x.code);h+=`<tr><td>${c?c.name:x.code}</td><td>${x.inst.toFixed(0)}</td><td><input id="t_${L.indexOf(x)}" value="0" style="width:70px"></td><td><button class="btn" onclick="real(${L.indexOf(x)})">Realize</button></td></tr>`});document.querySelector('#tg tbody').innerHTML=h;}
+function real(idx){let el=document.getElementById('t_'+idx);let v=parseFloat(el.value)||0;if(v<=0)return;if(v>=L[idx].inst)L[idx].paid++;localStorage.setItem('nufaika_l',JSON.stringify(L));loadG();load();}
+function viewL(){let i=document.getElementById('ls').value||0;let l=L[i];if(!l)return;let c=C.find(x=>x.code===l.code)||{};document.getElementById('vm').value=c.name||'';document.getElementById('vg').value=l.group;document.getElementById('vp').value=l.amt;document.getElementById('vpr').value=l.proc.toFixed(0);document.getElementById('vi').value=(l.amt*0.15).toFixed(0);document.getElementById('vt').value=(l.amt*1.15).toFixed(0);document.getElementById('vo').value=(l.sched[l.paid]?l.sched[l.paid].close:0).toFixed(0);let tb=document.querySelector('#st tbody');tb.innerHTML='';let st=new Date(l.date);l.sched.forEach((s,j)=>{let d=new Date(st);d.setDate(d.getDate()+(j+1)*7);tb.innerHTML+=`<tr><td>${j+1}</td><td>${d.toLocaleDateString()}</td><td>${s.princ.toFixed(0)}</td><td>${s.intr.toFixed(0)}</td><td>${s.inst.toFixed(0)}</td><td>${s.close.toFixed(0)}</td></tr>`});}
+function load(){
+ let s=(document.getElementById('s').value||'').toLowerCase();let bd=document.getElementById('bd').value;
+ let f=C.filter(c=>{let m=!s||c.idNo.toLowerCase().includes(s)||c.name.toLowerCase().includes(s);let dm=!bd||c.admission===bd;return m&&dm;});
+ document.querySelector('#tMem tbody').innerHTML=f.map(c=>{
+   let last=L.filter(x=>x.code===c.code).slice(-1)[0];let amt=last?last.amt:0;
+   return `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.idNo}</td><td>Active</td><td>${c.branch}</td><td>${c.group}</td><td>${c.admission}</td><td>${amt}</td><td>${c.bus}</td></tr>`;
+ }).join('');
+ document.getElementById('lc').innerHTML=C.map(c=>`<option value="${c.code}">${c.name} - ${c.idNo}</option>`).join('');
+ document.getElementById('ls').innerHTML=L.map((l,i)=>`<option value="${i}">${(C.find(c=>c.code===l.code)||{}).name||l.code} - ${l.amt}</option>`).join('');
+ document.getElementById('tot').innerText=L.reduce((a,b)=>a+b.amt,0);
+ document.getElementById('k1').innerText='KES '+L.reduce((a,b)=>a+b.amt,0);document.getElementById('k2').innerText=C.length;document.getElementById('k3').innerText='KES '+L.reduce((a,b)=>a+b.amt,0);
+ document.querySelector('#tb tbody').innerHTML=`<tr><td>Antony Mukeku</td><td>${C.length}</td><td>${L.reduce((a,b)=>a+b.amt,0)}</td><td>${L.reduce((a,b)=>a+(b.sched[b.paid]?b.sched[b.paid].close:0),0).toFixed(0)}</td></tr>`;
+ document.querySelector('#tbr tbody').innerHTML=`<tr><td>Antony Mukeku</td><td>${L.reduce((a,b)=>a+b.inst,0).toFixed(0)}</td><td>${L.reduce((a,b)=>a+b.advance,0).toFixed(0)}</td><td>${L.reduce((a,b)=>a+b.proc,0).toFixed(0)}</td></tr>`;
+ document.getElementById('prg').innerHTML=`Admissions: ${C.length} | Fully Paid: ${L.filter(x=>x.paid>=x.n).length} | Disbursements: ${L.length}`;
+ if(L.length) viewL();
+}
+load();
+</script>
+</body>
+</html>
