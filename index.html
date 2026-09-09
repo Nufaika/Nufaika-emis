@@ -1,4 +1,57 @@
-// change from
-<img src="uploads/nufaika-logo.png">
-// to
-<img src="https://via.placeholder.com/200?text=Nufaika">
+
+"use client";
+import { useState, useEffect } from "react";
+
+export default function Home() {
+  const [greet, setGreet] = useState("Welcome");
+  const [quote, setQuote] = useState("");
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) setGreet("Good Morning");
+    else if (hour < 17) setGreet("Good Afternoon");
+    else if (hour < 21) setGreet("Good Evening");
+    else setGreet("Good Night");
+
+    const quotes = [
+      "Planting hope, nurturing progress, growing futures.",
+      "Small steps today, thriving businesses tomorrow.",
+      "Empowering dreams, one business at a time.",
+      "Growth is not by chance, but by choice and commitment.",
+      "Together we rise — Nufaika, building brighter tomorrows.",
+    ];
+    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
+
+  return (
+    <div style={{ fontFamily: "Arial", background: "#f5f7f2", minHeight: "100vh", padding: "20px" }}>
+      <div style={{ textAlign: "center", background: "#fff", padding: "30px", borderRadius: "15px", maxWidth: "800px", margin: "0 auto", boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}>
+        
+        {/* LOGO - Correct way */}
+        <img 
+          src="/nufaika-logo.png" 
+          alt="Nufaika Logo" 
+          style={{ width: "200px", margin: "0 auto", display: "block" }}
+          onError={(e) => e.currentTarget.style.display = 'none'}
+        />
+
+        <h1 style={{ color: "#0e4d27", marginTop: "20px" }}>{greet}, Antony!</h1>
+        <p style={{ color: "#666" }}>{new Date().toLocaleDateString('en-KE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} • Ready to drive growth today.</p>
+
+        <div style={{ background: "linear-gradient(135deg,#f0f9e8,#fef9e0)", padding: "20px", borderRadius: "12px", marginTop: "20px" }}>
+          <h3 style={{ color: "#0e4d27", margin: "0 0 8px 0" }}>{quote}</h3>
+          <small>At Nufaika International, every small step fuels lasting change.</small><br />
+          <small style={{ color: "#b8962e", fontWeight: "bold" }}>EST 2026 • Empowering Microfinance</small>
+        </div>
+
+        <div style={{ marginTop: "25px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+          <a href="/members" style={{ background: "#0e4d27", color: "#fff", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Members</a>
+          <a href="/loans" style={{ background: "#b8962e", color: "#fff", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Loans</a>
+          <a href="/repayments" style={{ background: "#fff", color: "#0e4d27", border: "2px solid #0e4d27", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Collections</a>
+          <a href="/reports" style={{ background: "#fff", color: "#0e4d27", border: "2px solid #b8962e", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Reports</a>
+        </div>
+
+      </div>
+    </div>
+  );
+}
