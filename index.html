@@ -1,38 +1,87 @@
 
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nufaika International</title></head>
-<body style="font-family:Arial;background:#f5f7f2;margin:0;padding:15px;">
-<script>if(localStorage.getItem("nufaika_logged")!=="yes"){window.location.href="login.html";}</script>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NUFAIKA V3.2</title>
+<style>:root{--green:#0d4a23;--gold:#c8a94a;--bg:#f4f8f4}*{font-family:Arial;box-sizing:border-box}body{margin:0;background:var(--bg)}.h{background:var(--green);color:#fff;padding:10px;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:9}.h img{height:38px;background:#fff;border-radius:6px;padding:3px}.nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.nav button{background:#fff2;border:1px solid #fff3;color:#fff;padding:6px 9px;border-radius:6px;font-size:11px;cursor:pointer}.nav button.active{background:var(--gold);color:#000;font-weight:700}.card{background:#fff;border-radius:10px;padding:12px;margin:10px;box-shadow:0 2px 8px rgba(0,0,0,.06)}input,select{width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;margin:4px 0 8px 0;font-size:13px}table{width:100%;border-collapse:collapse;font-size:12px}th{background:var(--green);color:#fff;padding:6px;text-align:left}td{padding:6px;border-bottom:1px solid #eee}.btn{background:var(--green);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:700}</style></head><body>
+<div class="h"><div style="display:flex;align-items:center;gap:10px"><img src="nufaika-logo.png" onerror="this.src='logo.png'"><div><b>NUFAIKA INTERNATIONAL EST 2026</b><br><small>Branch: Nufaika Branch (Auto) | Officer: Antony Mukeku - LO001 (Auto) | <span id="dateNow"></span></small></div></div>
+<div class="nav"><button class="active" onclick="showTab('dash')">Dashboard</button><button onclick="showTab('members')">Member</button><button onclick="showTab('loanacc')">Loan Account</button><button onclick="showTab('view')">View Loan Account (ASA Style)</button><button onclick="showTab('group')">Group Sheet</button><button onclick="showTab('bal')">Balance Sheet</button><button onclick="showTab('branch')">Branch Report</button><button onclick="showTab('prog')">Programs Report</button></div></div>
 
-<div style="background:#fff;padding:20px;border-radius:15px;max-width:850px;margin:0 auto;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;">
-<h1 id="greet" style="color:#0e4d27">Welcome, Antony!</h1>
-<p id="date"></p>
-<div style="background:#f0f9e8;padding:15px;border-radius:10px;margin:15px 0;"><h3 id="quote" style="color:#0e4d27;margin:0;"></h3><small>EST 2026 • Empowering Microfinance</small></div>
+<div id="tab-dash"><div class="card"><h2 id="greet">Welcome, Antony!</h2><p id="q"></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div>Portfolio: <b id="kPort">KES 0</b></div><div>Clients: <b id="kCli">0</b></div><div>Disbursed Branch Total: <b id="kDis">0</b></div><div>Admissions Auto: <b id="kAdm">0</b></div></div><p style="font-size:11px;color:#666">Dashboard is clean - no member list here. Click Member tab to search.</p></div></div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;">
-<button onclick="showPage('members')" style="background:#0e4d27;color:#fff;padding:12px;border:none;border-radius:8px;">Members</button>
-<button onclick="showPage('loans')" style="background:#b8962e;color:#fff;padding:12px;border:none;border-radius:8px;">Loans</button>
-<button onclick="showPage('collections')" style="background:#fff;color:#0e4d27;border:2px solid #0e4d27;padding:12px;border-radius:8px;">Collections</button>
-<button onclick="showPage('reports')" style="background:#fff;color:#0e4d27;border:2px solid #b8962e;padding:12px;border-radius:8px;">Reports</button>
+<div id="tab-members" style="display:none"><div class="card">
+<h3>Member - Search by ID or Full Names + Backdate</h3>
+<div style="background:#f9f9f9;padding:10px;border-radius:8px;border:1px dashed #ccc">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div><label>Enter ID No or Full Names</label><input id="searchM" placeholder="ID or Full Names"></div>
+<div><label>Backdate (Admission Date Filter)</label><input type="date" id="backdateFilter"></div>
 </div>
-
-<div id="members" class="page" style="text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Members</h3><input placeholder="Member Name" style="width:90%;padding:10px;margin:5px 0;"><br><input placeholder="ID Number" style="width:90%;padding:10px;margin:5px 0;"><br><button style="background:#0e4d27;color:white;padding:10px 20px;border:none;border-radius:5px;">Save Member</button></div>
-<div id="loans" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Loans</h3><select style="width:95%;padding:10px;"><option>Business Loan - 15/20/25 Terms</option><option>Small Loan - 10 Terms</option></select><br><br><input placeholder="Amount" style="width:90%;padding:10px;"><br><br><button style="background:#b8962e;color:white;padding:10px 20px;border:none;border-radius:5px;">Disburse</button></div>
-<div id="collections" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Collections</h3><input placeholder="Search ID" style="width:90%;padding:10px;"><br><br><input placeholder="Amount Paid" style="width:90%;padding:10px;"><br><br><button style="background:#0e4d27;color:white;padding:10px 20px;border:none;border-radius:5px;">Record Payment</button></div>
-<div id="reports" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Reports</h3><p>Admissions (500) • Processing • Defaulters • Collections Today</p></div>
-
-<br><button onclick="logout()" style="background:#ccc;padding:8px 15px;border:none;border-radius:5px;">Logout</button>
+<button class="btn" onclick="refresh()">Search & Refresh</button> <small>Branch auto: Nufaika Branch | Officer auto: Antony Mukeku</small>
 </div>
+<table id="memTable"><thead><tr><th>Member Code</th><th>Name (per ID)</th><th>ID No</th><th>Active?</th><th>Branch</th><th>Group</th><th>Admission Date</th><th>Last Disbursed Amount</th><th>Business / Residence</th></tr></thead><tbody></tbody></table>
+
+<h4 style="margin-top:15px">Add New Member</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<input id="mName" placeholder="Name as per ID *"><input id="mID" placeholder="ID Number *">
+<input id="mGroup" placeholder="Group (e.g., BLESSING GROUP)"><input id="mPass" placeholder="Passbook No">
+<input id="mPhone" placeholder="Client Contact"><input id="mRes" placeholder="Place of Residence">
+<input id="mBus" placeholder="Where Business Is *"><input id="mKin" placeholder="Next of Kin + Contact">
+<input id="mGName" placeholder="Guarantor Name"><input id="mGID" placeholder="Guarantor ID + Contact">
+</div>
+<input type="date" id="mBackdate"><button class="btn" onclick="saveMember()">Save Member - 500 auto</button>
+</div></div>
+
+<div id="tab-loanacc" style="display:none"><div class="card">
+<h3>Loan Account - Add Disbursement</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div><label>Branch (Auto)</label><input value="Nufaika Branch" readonly></div><div><label>Loan Officer (Auto)</label><input value="Antony Mukeku" readonly></div>
+<div><label>Select Group</label><input id="lGroup" placeholder="Group"></div><div><label>Select Client (Dropdown)</label><select id="lClient" onchange="fillLoan()"></select></div>
+<div><label>Product (Dropdown)</label><select id="lProduct" onchange="calcProc()"><option value="business">Business Loan - 15/20/25 wks, Min 5000 No Max</option><option value="small">Small Loan - 10 wks, Max 15000</option></select></div><div><label>Period (Dropdown)</label><select id="lPeriod" onchange="calcProc()"><option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option><option value="10">10 Weeks</option></select></div>
+<div><label>Amount - Processing auto computes</label><input id="lAmount" type="number" onkeyup="calcProc()"><div id="procShow" style="font-weight:700;color:var(--green)">Processing: 0</div></div><div><label>Client Number</label><input id="lClientNo" readonly><label>Guarantor Number + ID No</label><input id="lGuarNo" readonly><input id="lIDNo" readonly></div>
+</div>
+<button class="btn" onclick="disburse()">Disburse - Schedule Auto Created</button><div id="sched"></div>
+<p>Branch Disbursed Total on Refresh: <b id="branchDisb">0</b> <button class="btn" onclick="refresh()">Refresh</button></p>
+</div></div>
+
+<div id="tab-view" style="display:none"><div class="card">
+<h3>View Loan Account - Like Your ASA Photo - Print With Logo</h3>
+<select id="loanSelect" onchange="loadLoan()"></select> <button class="btn" onclick="window.print()">Print Loan Schedule</button>
+<table><tr><td style="width:150px;background:#e8f0e8"><b>Loan Officer</b></td><td><input id="vOfficer" value="Antony Mukeku Mueni" style="width:95%"></td><td style="width:150px;background:#e8f0e8"><b>Group</b></td><td><input id="vGroup2" style="width:95%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Member</b></td><td><input id="vMember" style="width:95%"></td><td style="background:#e8f0e8"><b>Monthly Income</b></td><td><input id="vIncome" value="40000" style="width:95%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Disburse Date</b></td><td><input id="vDisbDate" style="width:95%"></td><td style="background:#e8f0e8"><b>Duration</b></td><td><input id="vDuration" style="width:95%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Program</b></td><td><input id="vProgram" style="width:95%"></td><td style="background:#e8f0e8"><b>Installment Type</b></td><td><input value="WEEKLY" style="width:95%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Principal Disbursed</b></td><td><input id="vPrincipal" style="width:90%"></td><td style="background:#e8f0e8"><b>Loan Processing Fee</b></td><td><input id="vProc2" style="width:90%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Interest (15%)</b></td><td><input id="vInt" style="width:90%"></td><td style="background:#e8f0e8"><b>Total Disbursed</b></td><td><input id="vTotal" style="width:90%"></td></tr>
+<tr><td style="background:#e8f0e8"><b>Outstanding as on Today</b></td><td><input id="vOut" style="width:90%"></td><td style="background:#e8f0e8"><b>Status</b></td><td><input value="OPEN" style="width:90%"></td></tr>
+</table>
+<div style="margin-top:10px"><table id="schedTable" style="font-size:10px"><thead><tr><th>I#</th><th>Date</th><th>Prin</th><th>Int</th><th>Total</th><th>Paid Total</th><th>Advance</th><th>Out Prin</th><th>Out Total</th></tr></thead><tbody></tbody></table></div>
+</div></div>
+
+<div id="tab-group" style="display:none"><div class="card"><h3>Group Transaction Sheet</h3><p>Officer: Antony Mukeku LO001 | Date: <span id="gDate"></span></p><input id="gGroup" placeholder="Enter Group Name (e.g., BLESSING GROUP)" onkeyup="loadGroup()"><table id="gTable"><thead><tr><th>Member (Code)</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today Starts 0</th><th>Realize</th></tr></thead><tbody></tbody></table></div></div>
+
+<div id="tab-bal" style="display:none"><div class="card"><h3>Programs Balance Sheet</h3><table id="balTable"><thead><tr><th>Officer</th><th>Borrowers</th><th>Principle Out</th><th>Loan Out</th><th>Overdue</th><th>Advance</th></tr></thead><tbody></tbody></table></div></div>
+
+<div id="tab-branch" style="display:none"><div class="card"><h3>Branch Report - Realizable vs Realized</h3><table id="branchTable"><thead><tr><th>Officer</th><th>Realizable</th><th>Realized</th><th>Processing Collected</th><th>Admissions</th></tr></thead><tbody></tbody></table></div></div>
+
+<div id="tab-prog" style="display:none"><div class="card"><h3>Programs Report - Fully Paid, Admissions, First Cycles, Disbursements</h3><div id="progArea"></div></div></div>
 
 <script>
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.style.display='none');document.getElementById(id).style.display='block';}
-function logout(){localStorage.removeItem("nufaika_logged");window.location.href="login.html";}
-const h=new Date().getHours();let g="Welcome";if(h<12)g="Good Morning";else if(h<17)g="Good Afternoon";else if(h<21)g="Good Evening";else g="Good Night";
-document.getElementById("greet").innerText=g+", Antony!";
-document.getElementById("date").innerText=new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-const qs=["Planting hope, nurturing progress, growing futures.","Small steps today, thriving businesses tomorrow.","Empowering dreams, one business at a time."];
-document.getElementById("quote").innerText=qs[Math.floor(Math.random()*qs.length)];
-</script>
-</body>
-</html>
+let clients=JSON.parse(localStorage.getItem('nufaika_v3_clients')||'[]');
+let loans=JSON.parse(localStorage.getItem('nufaika_v3_loans')||'[]');
+document.getElementById('dateNow').innerText=new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+document.getElementById('gDate').innerText=new Date().toLocaleDateString();
+let h=new Date().getHours();let g=h<12?'Good Morning':h<17?'Good Afternoon':h<21?'Good Evening':'Good Night';document.getElementById('greet').innerText=g+', Antony!';document.getElementById('q').innerText='Planting hope, nurturing progress, growing futures. • Branch Nufaika Branch Auto • Officer Antony Mukeku Auto';
+function showTab(t){document.querySelectorAll('[id^=tab-]').forEach(e=>e.style.display='none');document.getElementById('tab-'+t).style.display='block';document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');refresh();}
+function saveMember(){
+ let idNo=document.getElementById('mID').value.trim();if(!idNo||!document.getElementById('mName').value.trim()||!document.getElementById('mBus').value.trim())return alert('Name, ID, Business mandatory');if(clients.find(c=>c.idNo===idNo))return alert('Duplicate ID');
+ clients.push({code:'CL-'+(1000+clients.length),name:document.getElementById('mName').value,idNo,group:document.getElementById('mGroup').value||'Nufaika Group A',passbook:document.getElementById('mPass').value,phone:document.getElementById('mPhone').value,residence:document.getElementById('mRes').value,business:document.getElementById('mBus').value,kin:document.getElementById('mKin').value,gName:document.getElementById('mGName').value,gID:document.getElementById('mGID').value,branch:'Nufaika Branch',officer:'Antony Mukeku',admissionDate:document.getElementById('mBackdate').value||new Date().toISOString().split('T')[0],status:'Active',cycle:1,admissionFee:500,lastDisb:0});
+ localStorage.setItem('nufaika_v3_clients',JSON.stringify(clients));refresh();
+}
+function fillLoan(){let c=clients.find(x=>x.code===document.getElementById('lClient').value);if(!c)return;document.getElementById('lClientNo').value=c.phone;document.getElementById('lGuarNo').value=c.gID;document.getElementById('lIDNo').value=c.idNo;}
+function calcProc(){let amt=parseFloat(document.getElementById('lAmount').value)||0;let prod=document.getElementById('lProduct').value;let proc=prod==='business'?amt*0.045:amt*0.035;document.getElementById('procShow').innerText='Processing: KES '+proc.toFixed(2)+' auto ('+(prod==='business'?'4.5%':'3.5%')+') - Computes automatically when you click amount';}
+function disburse(){
+ let clientCode=document.getElementById('lClient').value;let amt=parseFloat(document.getElementById('lAmount').value);let prod=document.getElementById('lProduct').value;let n=parseInt(document.getElementById('lPeriod').value);
+ if(!clientCode||!amt)return alert('Select client and amount');let client=clients.find(c=>c.code===clientCode);if(prod==='small'&&client.cycle<2)return alert('Small only 2nd cycle');
+ let r=0.15/n;let inst=amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);let bal=amt;let sched=[];for(let w=1;w<=n;w++){let interest=bal*r;let princ=inst-interest;let clos=bal-princ;sched.push({w,open:bal,inst,interest,princ,close:Math.max(0,clos)});bal=clos;}
+ let proc=prod==='business'?amt*0.045:amt*0.035;loans.push({clientCode,product:prod,amt,n,inst,sched,proc,branch:'Nufaika Branch',officer:'Antony Mukeku',group:document.getElementById('lGroup').value||client.group,advance:0,overdue:0,paidWeeks:0,date:new Date().toISOString()});client.lastDisb=amt;if(loans.filter(l=>l.clientCode===clientCode&&l.product==='business').length>=2)client.cycle=2;
+ localStorage.setItem('nufaika_v3_loans',JSON.stringify(loans));localStorage.setItem('nufaika_v3_clients',JSON.stringify(clients));refresh();
+}
+function loadGroup(){let g=document.getElementById('gGroup').value.toLowerCase();let filtered=loans.filter(l=>l.group.toLowerCase().includes(g));let html='';filtered.forEach((l,i)=>{let cl=clients.find(c=>c.code===l.clientCode);html+=`<tr><td>${cl?cl.name:l.clientCode} (${l.clientCode})</td><td>${l.inst.toFixed(2)}</td><td>${l.advance.toFixed(2)}</td><td>${l.overdue.toFixed(2)}</td><td><input id="today_${i}" type="number" value="0" style="width:70px"></td><td><button class="btn" onclick="realize(${
