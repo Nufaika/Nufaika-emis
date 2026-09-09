@@ -1,172 +1,123 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NUFAIKA V2 - Full EMIS</title>
-<style>
-body{margin:0;font-family:Arial;background:#eef4ee}.header{background:#0d4a23;color:#fff;padding:10px 14px;border-bottom:4px solid #c8a94a;display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center}
-.header img{height:42px;background:#fff;padding:3px;border-radius:6px}
-.nav button{margin:2px;padding:7px 10px;border-radius:6px;border:1px solid #ffffff33;background:#ffffff22;color:#fff;font-size:12px;cursor:pointer}
-.nav button.active{background:#c8a94a;color:#000;font-weight:bold}
-.card{background:#fff;margin:10px;padding:14px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-input,select{width:100%;padding:9px;margin:5px 0;border:1px solid #ddd;border-radius:6px;font-size:13px}
-.btn{background:#109040;color:#fff;border:none;padding:9px 14px;border-radius:6px;font-weight:bold;cursor:pointer}
-table{width:100%;border-collapse:collapse;font-size:12px}th{background:#0d4a23;color:#fff;padding:7px;text-align:left}td{padding:6px;border-bottom:1px solid #eee}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px} @media(max-width:600px){.grid{grid-template-columns:1fr}}
-.small{font-size:11px;color:#666}
-</style></head><body>
+Perfect! Here is *ONE COPY = ALL 3 FILES*. Copy everything once and paste to test:
 
-<div id="loginPage"><div class="card" style="max-width:420px;margin:50px auto;text-align:center">
-<img src="logo.png" style="width:130px" onerror="this.style.display='none'">
-<h2 style="color:#0d4a23;margin:0">NUFAIKA INTERNATIONAL</h2><p style="color:#c8a94a;font-weight:bold;letter-spacing:3px;margin:2px">EST 2026 - V2</p>
-<p><b>Paybill 522533 | Acc 7755655</b></p>
-<select id="role"><option>CEO</option><option>Branch Manager</option><option selected>Loan Officer</option></select>
-<input id="user" value="admin@nufaika.co.ke"><input id="pass" type="password" value="1234">
-<button class="btn" style="width:100%" onclick="doLogin()">Sign In to V2</button>
-<p class="small">Business 15% Proc 4.5% NO MAX | Small 15% Proc 3.5% Max 15k</p>
-</div></div>
+---
 
-<div id="app" style="display:none">
-<div class="header"><div style="display:flex;align-items:center;gap:8px"><img src="logo.png"><div><b>NUFAIKA V2</b><br><small>PB 522533 / 7755655</small></div></div>
-<div class="nav">
-<button id="b-dash" class="active" onclick="openTab('dash')">Dashboard</button>
-<button id="b-member" onclick="openTab('member')">Member</button>
-<button id="b-loan" onclick="openTab('loan')">Loan Account</button>
-<button id="b-group" onclick="openTab('group')">Group Sheet</button>
-<button id="b-preport" onclick="openTab('preport')">Programs Report</button>
-<button id="b-balance" onclick="openTab('balance')">Balance Sheet</button>
-<button id="b-branch" onclick="openTab('branch')">Branch Report</button>
-<button id="b-mpesa" onclick="openTab('mpesa')">M-Pesa</button>
-<button onclick="location.reload()">Logout</button>
-</div></div>
+*===== FILE 1: http://dashboard.php - REPLACE WHOLE FILE =====*
+<?php
+session_start();
+date_default_timezone_set('Africa/Nairobi');
+$hour = date('H');
+if($hour < 12) $greet = "Good Morning";
+elseif($hour < 17) $greet = "Good Afternoon";
+elseif($hour < 21) $greet = "Good Evening";
+else $greet = "Good Night";
 
-<!-- DASH -->
-<div id="tab-dash" class="tab"><div class="card"><h3>Dashboard</h3><p id="stats"></p></div></div>
-
-<!-- MEMBER -->
-<div id="tab-member" class="tab" style="display:none"><div class="card">
-<h3>Member Management <button class="btn" style="float:right" onclick="document.getElementById('memberForm').style.display='block'">+ Add Member</button></h3>
-<div id="memberForm" style="display:none;border:2px dashed #c8a94a;padding:12px;background:#fffef2">
-<h4>Add Member - Full Details</h4>
-<div class="grid">
-<input id="mBranch" placeholder="Branch Name e.g. Nairobi"><input id="mBranchCode" placeholder="Branch Code e.g. NBI-01">
-<input id="mName" placeholder="Client Full Name as per ID"><input id="mIdNo" placeholder="ID Number Unique">
-<input id="mGroup" placeholder="Group Admitting To e.g. Group A"><input id="mPassbook" placeholder="Passbook Number e.g. PB-001">
-<input id="mPhone" placeholder="Client Phone"><input id="mResidence" placeholder="Place of Residence">
-<input id="mBusinessPlace" placeholder="Where Business Is"><input id="mGuarantorName" placeholder="Guarantor Full Name">
-<input id="mGuarantorId" placeholder="Guarantor ID"><input id="mGuarantorPhone" placeholder="Guarantor Phone & Contacts">
-<input id="mNextKin" placeholder="Next of Kin Name"><input id="mNextKinPhone" placeholder="Next of Kin Phone + Relationship">
+$quotes = [
+ "Planting hope, nurturing progress, growing futures.",
+ "Small steps today, thriving businesses tomorrow.",
+ "Empowering dreams, one business at a time.",
+ "Growth is not by chance, but by choice and commitment.",
+ "Together we rise — Nufaika, building brighter tomorrows.",
+ "From small seeds, great enterprises grow.",
+ "Progress is our promise, hope is our product."
+];
+$quote = $quotes[array_rand($quotes)];
+$user = $_SESSION['username'] ?? 'Antony';
+?>
+<div style="text-align:center;background:#fff;padding:25px;border-radius:15px;">
+  <img src="uploads/nufaika-logo.png" style="width:210px;margin:auto;display:block;">
+  <h1 style="color:#0e4d27;margin-top:15px;"><?php echo $greet; ?>, <?php echo $user; ?>!</h1>
+  <p style="color:#666;"><?php echo date('l, j F Y'); ?> • Ready to drive growth today.</p>
+  <div style="background:linear-gradient(135deg,#f0f9e8,#fef9e0);padding:18px;border-radius:12px;max-width:700px;margin:15px auto;box-shadow:0 4px 10px rgba(0,0,0,0.07);">
+    <h3 style="color:#0e4d27;margin:0;"><?php echo $quote; ?></h3>
+    <small>At Nufaika International, every small step fuels lasting change.</small><br>
+    <small style="color:#b8962e;">EST 2026 • Empowering Microfinance Since 2026</small>
+  </div>
 </div>
-<button class="btn" onclick="addMember()">Save Member + Admission KES 500 Receipt with Logo</button>
-<button onclick="document.getElementById('memberForm').style.display='none'">Cancel</button>
-</div>
-<div style="margin:10px 0;background:#f4f8f4;padding:10px;border-radius:8px">
-<h4>Search Member - Backdate Method</h4>
-<div class="grid"><input id="searchId" placeholder="Enter Client ID No"><input id="searchName" placeholder="Or Enter Full Name"></div>
-<button class="btn" onclick="searchMember()">Refresh / Search</button><button class="btn" onclick="document.getElementById('searchId').value='';document.getElementById('searchName').value='';refresh()">Clear - Show All</button>
-</div>
-<table id="memberTable"></table>
-</div></div>
+*===== FILE 2: http://member.php - FIND ADD MEMBER FORM =====*
 
-<!-- LOAN ACCOUNT -->
-<div id="tab-loan" class="tab" style="display:none"><div class="card">
-<h3>Loan Account - Disbursement <button class="btn" style="float:right" onclick="document.getElementById('loanForm').style.display='block'">+ Add Loan</button></h3>
-<div id="loanForm" style="display:none;border:2px solid #0d4a23;padding:12px">
-<div class="grid">
-<select id="lOfficer"><option>Loan Officer 1 - LO001</option><option>Loan Officer 2 - LO002</option><option>Branch Manager - BM001</option></select>
-<input id="lBranch" placeholder="Branch">
-<input id="lGroup" placeholder="Group e.g. Group A">
-<select id="lClientSelect"></select>
-<select id="lProduct"><option value="business">Business Loan - 15% Int, 4.5% Proc, NO MAX</option><option value="small">Small Loan - 15% Int, 3.5% Proc, Max 15k</option></select>
-<input id="lAmount" type="number" placeholder="Amount" oninput="calcFee()">
-<input id="lFee" placeholder="Processing Fee Auto Computes" readonly>
-<input id="lPeriod" type="number" placeholder="Period Weeks e.g. 20" value="20">
-<input id="lClientNo" placeholder="Client Number / Passbook"><input id="lGuarantorNo" placeholder="Guarantor Number">
-<input id="lIdNo" placeholder="Client ID No auto" readonly>
-</div>
-<p id="loanSchedulePreview" class="small"></p>
-<button class="btn" onclick="addLoan()">Disburse - Schedule Auto Created + Receipt Logo + Paybill 522533</button>
-</div>
-<p><button class="btn" onclick="refresh()">Refresh - See Total Disbursed as Branch</button> <span id="totalDisb"></span></p>
-<table id="loanTable"></table>
-<div id="loanSchedDetail"></div>
-</div></div>
+REPLACE these inputs:
+<!-- AUTO FIELDS -->
+<input type="text" name="branch" value="Nufaika Branch" readonly style="background:#eef6e8;font-weight:bold;">
+<input type="text" name="loan_officer" value="Antony Mukeku" readonly style="background:#eef6e8;font-weight:bold;">
+<input type="text" name="id_number" id="search_id" required placeholder="Search by ID Number" onkeyup="searchClient(this.value)">
+<input type="text" name="physical_business" required placeholder="Physical Business *">
 
-<!-- GROUP SHEET -->
-<div id="tab-group" class="tab" style="display:none"><div class="card">
-<h3>Group Transaction Sheet</h3>
-<p class="small">Loan Officer sees name + code + date, selects group, members appear, then realizes according to payment</p>
-<div class="grid"><input id="gOfficer" placeholder="Loan Officer Name + Code e.g. John LO001"><input type="date" id="gDate"><select id="gSelectGroup"><option>Select Group</option></select></div>
-<button class="btn" onclick="loadGroupSheet()">Load Group Members</button>
-<label><input type="checkbox" id="gHoliday"> Holiday Mode - No Overdue</label>
-<table id="groupTable"><tr><th>Member</th><th>ID</th><th>Week</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today Pay Start 0</th><th>Balance</th><th>Action</th></tr></table>
-</div></div>
+<!-- BACKEND ON SAVE -->
+<?php
+$admission_fee = 500; // auto-counted, not shown
+$branch = "Nufaika Branch";
+$officer = "Antony Mukeku";
+// Inactive check - 2 months no loan = readmission 500
+$last = mysqli_fetch_assoc(mysqli_query($conn,"SELECT MAX(disbursed_date) as ld FROM loans WHERE client_id='$client_id'"))['ld'];
+if($last && $last < date('Y-m-d', strtotime('-2 months'))){
+  $admission_fee = 500;
+}
+// Auto insert to admissions
+mysqli_query($conn,"INSERT INTO admissions_report(client_id,amount,branch,date) VALUES('$client_id','$admission_fee','$branch',NOW())");
+?>
+*===== FILE 3: loan_account.php - REPLACE DISBURSEMENT FORM + BACKEND =====*
 
-<!-- PROGRAMS REPORT -->
-<div id="tab-preport" class="tab" style="display:none"><div class="card"><h3>Programs Report</h3><p id="programStats"></p><table id="programTable"></table></div></div>
-
-<!-- BALANCE SHEET -->
-<div id="tab-balance" class="tab" style="display:none"><div class="card"><h3>Programs Balance Sheet - Branch Performance</h3><p class="small">Displays Loan Officers, Borrowers, Principle Outstanding, Loan Outstanding, Overdue, Advance</p><table id="balanceTable"></table></div></div>
-
-<!-- BRANCH REPORT -->
-<div id="tab-branch" class="tab" style="display:none"><div class="card"><h3>Branch Report - Realizable vs Realized</h3><p class="small">Shows how much Loan Officers realized against Realizable, collections, processing fees</p><table id="branchTable"></table></div></div>
-
-<!-- MPESA -->
-<div id="tab-mpesa" class="tab" style="display:none"><div class="card"><h3>M-Pesa - Paybill 522533 Account 7755655</h3><p>Business No: <b>522533</b> | Account: <b>7755655</b></p><p>M-Pesa > Lipa na M-Pesa > Paybill > 522533 > Acc 7755655 > Amount > PIN</p><p>STK Push coming in V2 Backend</p></div></div>
-</div>
+FRONTEND:
+<input type="text" value="Nufaika Branch" readonly name="branch">
+<input type="text" value="Antony Mukeku" readonly name="loan_officer">
+<input type="text" name="client_id" required placeholder="Client ID - searchable" list="clients">
+<select name="product" id="product" onchange="setDuration()" required>
+  <option value="">Select Product</option>
+  <option value="Business Loan">Business Loan</option>
+  <option value="Small Loan">Small Loans</option>
+</select>
+<select name="duration" id="duration" required></select>
+<input type="number" name="amount" id="amount" required placeholder="Amount">
 
 <script>
-let members=[], loans=[];
-try{members=JSON.parse(localStorage.getItem('nufaika_v2_members')||'[]'); loans=JSON.parse(localStorage.getItem('nufaika_v2_loans')||'[]');}catch(e){}
-function doLogin(){document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';refresh();}
-function openTab(t){document.querySelectorAll('.tab').forEach(x=>x.style.display='none');document.getElementById('tab-'+t).style.display='block';document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));let btn=document.getElementById('b-'+t);if(btn)btn.classList.add('active');refresh();}
-function addMember(){
- let idNo=document.getElementById('mIdNo').value.trim(); if(!idNo)return alert('ID required');
- if(members.find(m=>m.idNo===idNo))return alert('ID already exists');
- let gId=document.getElementById('mGuarantorId').value.trim();
- if(gId && members.find(m=>m.guarantorId===gId))return alert('Guarantor already used for another member');
- let m={id:'M-'+(1000+members.length),branch:document.getElementById('mBranch').value,branchCode:document.getElementById('mBranchCode').value,name:document.getElementById('mName').value,idNo,group:document.getElementById('mGroup').value,passbook:document.getElementById('mPassbook').value,phone:document.getElementById('mPhone').value,residence:document.getElementById('mResidence').value,businessPlace:document.getElementById('mBusinessPlace').value,guarantorName:document.getElementById('mGuarantorName').value,guarantorId:gId,guarantorPhone:document.getElementById('mGuarantorPhone').value,nextKin:document.getElementById('mNextKin').value,nextKinPhone:document.getElementById('mNextKinPhone').value,admission:500,status:'Active',date:new Date().toISOString().slice(0,10)};
- members.push(m); localStorage.setItem('nufaika_v2_members',JSON.stringify(members)); document.getElementById('memberForm').style.display='none'; refresh(); alert('Member saved with branch, guarantor, residence, business place, next of kin + Receipt with logo Paybill 522533');
+function setDuration(){
+  let p=document.getElementById('product').value;
+  let d=document.getElementById('duration');
+  if(p=="Business Loan") d.innerHTML='<option value="15">15 Weeks</option><option value="20" selected>20 Weeks</option><option value="25">25 Weeks</option>';
+  else if(p=="Small Loan") d.innerHTML='<option value="10" selected>10 Weeks (Auto)</option>';
 }
-function searchMember(){
- let id=document.getElementById('searchId').value.trim().toLowerCase(); let name=document.getElementById('searchName').value.trim().toLowerCase();
- let filtered=members.filter(m=>(!id||m.idNo.toLowerCase().includes(id)) && (!name||m.name.toLowerCase().includes(name)));
- renderMembers(filtered);
-}
-function renderMembers(list){ let data=list||members; document.getElementById('memberTable').innerHTML='<tr><th>Branch</th><th>Name</th><th>ID No</th><th>Group</th><th>Passbook</th><th>Phone</th><th>Residence</th><th>Business</th><th>Guarantor</th><th>Next Kin</th></tr>'+data.map(m=>`<tr><td>${m.branch} ${m.branchCode}</td><td>${m.name}</td><td>${m.idNo}</td><td>${m.group}</td><td>${m.passbook}</td><td>${m.phone}</td><td>${m.residence}</td><td>${m.businessPlace}</td><td>${m.guarantorName} ${m.guarantorId} ${m.guarantorPhone}</td><td>${m.nextKin} ${m.nextKinPhone}</td></tr>`).join('');}
-function calcFee(){ let amt=parseFloat(document.getElementById('lAmount').value||0); let prod=document.getElementById('lProduct').value; let rate=prod==='business'?0.045:0.035; document.getElementById('lFee').value='KES '+(amt*rate).toFixed(2)+' ('+(rate*100)+'%)'; let cid=document.getElementById('lClientSelect').value; let mem=members.find(x=>x.id===cid); if(mem)document.getElementById('lIdNo').value=mem.idNo; }
-function addLoan(){
- let amt=parseFloat(document.getElementById('lAmount').value||0); let prod=document.getElementById('lProduct').value; let n=parseInt(document.getElementById('lPeriod').value||20);
- if(!amt)return alert('Enter amount'); if(prod==='small'&&amt>15000)return alert('Small max 15000');
- let clientId=document.getElementById('lClientSelect').value; if(!clientId)return alert('Select client');
- if(prod==='small' &&!loans.find(l=>l.clientId===clientId && l.product==='business'))return alert('Client must have Business loan first for Small');
- let r=0.15/n; let inst=amt*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); let bal=amt; let sched=[];
- for(let w=1;w<=n;w++){let intr=bal*r;let princ=inst-intr;let close=bal-princ; sched.push({week:w,open:bal,inst,intr,princ,close:Math.max(0,close)}); bal=close;}
- let fee=prod==='business'?amt*0.045:amt*0.035;
- let loan={id:'L-'+(1000+loans.length),clientId,product:prod,amount:amt,fee,period:n,instalment:inst,schedule:sched,advance:0,overdue:0,paidWeeks:0,officer:document.getElementById('lOfficer').value,branch:document.getElementById('lBranch').value,group:document.getElementById('lGroup').value,clientNo:document.getElementById('lClientNo').value,guarantorNo:document.getElementById('lGuarantorNo').value,idNo:document.getElementById('lIdNo').value,date:new Date().toISOString().slice(0,10),status:'Active'};
- loans.push(loan); localStorage.setItem('nufaika_v2_loans',JSON.stringify(loans)); refresh(); alert('Loan Disbursed! Fee '+fee.toFixed(0)+' separate, schedule auto created, receipt with logo Paybill 522533/7755655');
-}
-function loadGroupSheet(){
- let gName=document.getElementById('gSelectGroup').value; if(gName==='Select Group')return alert('Select group');
- let filteredLoans=loans.filter(l=>l.group===gName); renderGroupSheet(filteredLoans);
-}
-function renderGroupSheet(list){
- document.getElementById('groupTable').innerHTML='<tr><th>Member</th><th>ID</th><th>Week</th><th>Required</th><th>Advance</th><th>Overdue</th><th>Today 0</th><th>Balance</th><th>Action</th></tr>'+list.map((l,i)=>{let mem=members.find(m=>m.id===l.clientId);return `<tr><td>${mem?mem.name:l.clientId}</td><td>${l.idNo}</td><td>${l.paidWeeks+1}/${l.period}</td><td>${l.instalment.toFixed(0)}</td><td>${l.advance.toFixed(0)}</td><td>${l.overdue.toFixed(0)}</td><td><input id="gpay${i}" type="number" value="0" style="width:70px"></td><td>${l.schedule[l.paidWeeks]?l.schedule[l.paidWeeks].close.toFixed(0):'0'}</td><td><button class="btn" onclick="collectG(${loans.indexOf(l)})">Realize</button></td></tr>`}).join('');
-}
-function collectG(idx){ let amt=parseFloat(document.getElementById('gpay'+loans.indexOf(loans[idx])).value||document.querySelector(`#groupTable input[id^="gpay"]`).value||0); let l=loans[idx]; let val=parseFloat(prompt('Enter Today Pay - starts 0 for '+members.find(m=>m.id===l.clientId)?.name||l.clientId)||'0'); if(isNaN(val))return; if(l.advance>0){let use=Math.min(l.advance,l.instalment);l.advance-=use;val+=use;} if(val>=l.instalment){l.advance+=val-l.instalment;l.paidWeeks++;l.overdue=0;if(l.paidWeeks>=l.period)l.status='Fully Paid';} else{if(!document.getElementById('gHoliday').checked)l.overdue+=l.instalment-val;} localStorage.setItem('nufaika_v2_loans',JSON.stringify(loans)); refresh(); alert('Realized!');}
+</script>
+BACKEND VALIDATION - PASTE BEFORE INSERT:
+<?php
+$product = $_POST['product'];
+$amount = $_POST['amount'];
+$duration = $_POST['duration'];
+$guarantor_id = $_POST['guarantor_id'];
+$client_id = $_POST['client_id'];
 
-function refresh(){
- renderMembers();
- let clientSel=document.getElementById('lClientSelect'); if(clientSel)clientSel.innerHTML=members.map(m=>`<option value="${m.id}">${m.name} - ${m.idNo} - ${m.group}</option>`).join('')||'<option>No members yet</option>';
- let gSel=document.getElementById('gSelectGroup'); if(gSel){let groups=[...new Set(members.map(m=>m.group).filter(Boolean))]; gSel.innerHTML='<option>Select Group</option>'+groups.map(g=>`<option>${g}</option>`).join('');}
- document.getElementById('loanTable').innerHTML='<tr><th>Loan ID</th><th>Client</th><th>Officer</th><th>Branch/Group</th><th>Product</th><th>Amount</th><th>Fee Auto</th><th>Period</th><th>Instalment</th><th>Status</th></tr>'+loans.map(l=>{let mem=members.find(m=>m.id===l.clientId);return `<tr><td>${l.id}</td><td>${mem?mem.name:l.clientId}</td><td>${l.officer}</td><td>${l.branch}/${l.group}</td><td>${l.product}</td><td>${l.amount.toLocaleString()}</td><td>${l.fee.toFixed(0)}</td><td>${l.period}</td><td>${l.instalment.toFixed(0)}</td><td>${l.status}</td></tr>`}).join('');
- document.getElementById('totalDisb').innerText='Total Disbursed: KES '+loans.reduce((a,b)=>a+b.amount,0).toLocaleString();
- document.getElementById('stats').innerHTML='Members: '+members.length+' | Loans: '+loans.length+' | Portfolio KES '+loans.reduce((a,b)=>a+b.amount,0).toLocaleString()+' | Paybill 522533/7755655 | Business NO MAX | Small 15% Proc 3.5%';
- // Programs Report
- let fullyPaid=loans.filter(l=>l.status==='Fully Paid').length; let admissions=members.length; let firstCycle=members.filter(m=>loans.filter(l=>l.clientId===m.id).length===1).length;
- document.getElementById('programStats').innerHTML='Fully Paid: '+fullyPaid+' | Admissions: '+admissions+' | First Cycles: '+firstCycle+' | Total Disbursements: '+loans.length;
- document.getElementById('programTable').innerHTML='<tr><th>Metric</th><th>Count</th><th>Amount</th></tr><tr><td>Fully Paid Loans</td><td>'+fullyPaid+'</td><td>'+loans.filter(l=>l.status==='Fully Paid').reduce((a,b)=>a+b.amount,0).toLocaleString()+'</td></tr><tr><td>Admissions (Members)</td><td>'+admissions+'</td><td>KES '+(admissions*500).toLocaleString()+'</td></tr><tr><td>Disbursements</td><td>'+loans.length+'</td><td>'+loans.reduce((a,b)=>a+b.amount,0).toLocaleString()+'</td></tr>';
- // Balance Sheet
- let officers=[...new Set(loans.map(l=>l.officer))]; document.getElementById('balanceTable').innerHTML='<tr><th>Loan Officer</th><th>Borrowers</th><th>Principle Outstanding</th><th>Loan Outstanding</th><th>Overdue</th><th>Advance</th></tr>'+officers.map(o=>{let ol=loans.filter(l=>l.officer===o); let prinOut=ol.reduce((a,b)=>{let rem=b.schedule.slice(b.paidWeeks).reduce((s,sc)=>s+sc.princ,0); return a+rem;},0); let loanOut=ol.reduce((a,b)=>{let rem=b.schedule[b.paidWeeks]?b.schedule[b.paidWeeks].close:0; return a+rem;},0); return `<tr><td>${o}</td><td>${ol.length}</td><td>${prinOut.toFixed(0)}</td><td>${loanOut.toFixed(0)}</td><td>${ol.reduce((a,b)=>a+b.overdue,0).toFixed(0)}</td><td>${ol.reduce((a,b)=>a+b.advance,0).toFixed(0)}</td></tr>`}).join('');
- // Branch Report
- let branches=[...new Set(loans.map(l=>l.branch).filter(Boolean))]; document.getElementById('branchTable').innerHTML='<tr><th>Branch / Officer</th><th>Realizable</th><th>Realized</th><th>Collection %</th><th>Proc Fees Collected</th></tr>'+officers.map(o=>{let ol=loans.filter(l=>l.officer===o); let realizable=ol.length* (ol[0]?ol[0].instalment:0); let realized=ol.reduce((a,b)=>a+(b.paidWeeks*b.instalment)+b.advance,0); let perc=realizable?((realized/realizable)*100).toFixed(1):0; return `<tr><td>${o}</td><td>${realizable.toFixed(0)}</td><td>${realized.toFixed(0)}</td><td>${perc}%</td><td>${ol.reduce((a,b)=>a+b.fee,0).toFixed(0)}</td></tr>`}).join('');
-}
-</script></body></html>
+// Rule 1: Business min 5000
+if($product=="Business Loan" && $amount < 5000) die("ERROR: Business Loan min is 5000");
+// Rule 2: Small max 15000
+if($product=="Small Loan" && $amount > 15000) die("ERROR: Small Loan max is 15000");
+// Rule 3: Small only 2nd cycle
+$paid_business = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as c FROM loans WHERE client_id='$client_id' AND product='Business Loan' AND status IN('Paid','Closed')"))['c'];
+if($product=="Small Loan" && $paid_business < 1) die("ERROR: Small Loan only for 2nd cycle clients");
+// Rule 4: Guarantor cannot guarantee 2 active DIFFERENT clients
+$checkG = mysqli_query($conn,"SELECT * FROM loans WHERE guarantor_id='$guarantor_id' AND status='Active' AND client_id != '$client_id'");
+if(mysqli_num_rows($checkG) > 0) die("ERROR: Guarantor already guaranteeing another active client");
+// Rule 5: Processing auto
+$processing = ($product=="Business Loan") ? $amount*0.045 : $amount*0.035;
+$interest = $amount*0.15;
+// Rule 6: Schedule auto
+// After loan insert -> create schedule
+// Rule 7: Top-up only Week 8 - in view file:
+if($current_week >= 8) { echo "Top-up Allowed"; }
+
+// Final insert with auto branch/officer
+$branch = "Nufaika Branch";
+$officer = "Antony Mukeku";
+?>
+*UPLOAD:* Save your logo as `uploads/nufaika-logo.png`
+
+---
+
+Copy this ONE block boss, replace the 3 files, commit as `V2.1 - Welcome + Auto + Rules`.
+
+After pushing, test:
+1. Login → see Good Evening + quote + logo?
+2. Add member → Branch/Officer auto?
+3. Disburse Business 5000 → works, 4000 → blocks?
+4. Disburse Small 15000 for new client → blocks, for 2nd cycle → works?
+
+Tell me what you see after test!
