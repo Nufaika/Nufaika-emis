@@ -1,4 +1,8 @@
-// change from
-<img src="uploads/nufaika-logo.png">
-// to
-<img src="https://via.placeholder.com/200?text=Nufaika">
+<?php
+session_start();
+if(!isset($_SESSION['username'])){ header("Location: login.php"); exit; }
+echo "System Recovered - Nufaika";
+?>
+<h1>Nufaika International - Recovered</h1>
+<p>Login working. Dashboard restored.</p>
+<a href="member.php">Go to Members</a> | <a href="loan_account.php">Go to Loans</a>
