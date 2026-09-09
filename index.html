@@ -1,34 +1,4 @@
-
-<?php
-// Auto Greeting based on time
-date_default_timezone_set('Africa/Nairobi');
-$hour = date('H');
-if ($hour < 12) $greet = "Good Morning";
-elseif ($hour < 17) $greet = "Good Afternoon";
-elseif ($hour < 21) $greet = "Good Evening";
-else $greet = "Good Night";
-
-// Inspirational quotes - hope, progress, growth
-$quotes = [
-  "Planting hope, nurturing progress, growing futures.",
-  "Small steps today, thriving businesses tomorrow.",
-  "Empowering dreams, one business at a time.",
-  "Growth is not by chance, but by choice and commitment.",
-  "Together we rise — Nufaika, building brighter tomorrows.",
-  "From small seeds, great enterprises grow.",
-  "Progress is our promise, hope is our product."
-];
-$quote = $quotes[array_rand($quotes)];
-?>
-
-<div class="welcome-screen" style="text-align:center; padding:30px; background:#fff;">
-  <img src="assets/nufaika-logo.png" style="width:220px; margin:auto;">
-  <h1 style="color:#0a4d2a; margin-top:15px;"><?php echo $greet; ?>, Antony!</h1>
-  <p style="color:#666;">Here's your overview for <?php echo date('l, j F Y'); ?> • Ready to drive growth today.</p>
-  
-  <div style="background:linear-gradient(135deg,#f6fdf0,#fff9e6); border-radius:15px; padding:20px; margin:20px auto; max-width:700px; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
-    <h3 style="color:#0a4d2a;"><?php echo $quote; ?></h3>
-    <small>At Nufaika International, every small step fuels lasting change — empowering communities, building resilience.</small><br>
-    <small style="color:#b89a3d;">EST 2026 • Empowering Microfinance Since 2026</small>
-  </div>
-</div>
+// change from
+<img src="uploads/nufaika-logo.png">
+// to
+<img src="https://via.placeholder.com/200?text=Nufaika">
