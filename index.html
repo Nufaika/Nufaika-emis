@@ -1,8 +1,4 @@
-Perfect! Here is *ONE COPY = ALL 3 FILES*. Copy everything once and paste to test:
 
----
-
-*===== FILE 1: http://dashboard.php - REPLACE WHOLE FILE =====*
 <?php
 session_start();
 date_default_timezone_set('Africa/Nairobi');
@@ -34,9 +30,6 @@ $user = $_SESSION['username'] ?? 'Antony';
     <small style="color:#b8962e;">EST 2026 • Empowering Microfinance Since 2026</small>
   </div>
 </div>
-*===== FILE 2: http://member.php - FIND ADD MEMBER FORM =====*
-
-REPLACE these inputs:
 <!-- AUTO FIELDS -->
 <input type="text" name="branch" value="Nufaika Branch" readonly style="background:#eef6e8;font-weight:bold;">
 <input type="text" name="loan_officer" value="Antony Mukeku" readonly style="background:#eef6e8;font-weight:bold;">
@@ -55,10 +48,6 @@ if($last && $last < date('Y-m-d', strtotime('-2 months'))){
 }
 // Auto insert to admissions
 mysqli_query($conn,"INSERT INTO admissions_report(client_id,amount,branch,date) VALUES('$client_id','$admission_fee','$branch',NOW())");
-?>
-*===== FILE 3: loan_account.php - REPLACE DISBURSEMENT FORM + BACKEND =====*
-
-FRONTEND:
 <input type="text" value="Nufaika Branch" readonly name="branch">
 <input type="text" value="Antony Mukeku" readonly name="loan_officer">
 <input type="text" name="client_id" required placeholder="Client ID - searchable" list="clients">
@@ -78,7 +67,6 @@ function setDuration(){
   else if(p=="Small Loan") d.innerHTML='<option value="10" selected>10 Weeks (Auto)</option>';
 }
 </script>
-BACKEND VALIDATION - PASTE BEFORE INSERT:
 <?php
 $product = $_POST['product'];
 $amount = $_POST['amount'];
@@ -108,16 +96,4 @@ if($current_week >= 8) { echo "Top-up Allowed"; }
 $branch = "Nufaika Branch";
 $officer = "Antony Mukeku";
 ?>
-*UPLOAD:* Save your logo as `uploads/nufaika-logo.png`
-
----
-
-Copy this ONE block boss, replace the 3 files, commit as `V2.1 - Welcome + Auto + Rules`.
-
-After pushing, test:
-1. Login → see Good Evening + quote + logo?
-2. Add member → Branch/Officer auto?
-3. Disburse Business 5000 → works, 4000 → blocks?
-4. Disburse Small 15000 for new client → blocks, for 2nd cycle → works?
-
-Tell me what you see after test!
+?>
