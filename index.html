@@ -1,57 +1,43 @@
 
-"use client";
-import { useState, useEffect } from "react";
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nufaika International</title>
+</head>
+<body style="font-family:Arial; background:#f5f7f2; margin:0; padding:20px;">
+<div style="text-align:center; background:#fff; padding:30px; border-radius:15px; max-width:800px; margin:0 auto; box-shadow:0 4px 15px rgba(0,0,0,0.1)">
 
-export default function Home() {
-  const [greet, setGreet] = useState("Welcome");
-  const [quote, setQuote] = useState("");
+<img src="nufaika-logo.png" alt="Nufaika Logo" style="width:200px; margin:0 auto; display:block" onerror="this.style.display='none'">
 
-  useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) setGreet("Good Morning");
-    else if (hour < 17) setGreet("Good Afternoon");
-    else if (hour < 21) setGreet("Good Evening");
-    else setGreet("Good Night");
+<h1 id="greet" style="color:#0e4d27; margin-top:20px;">Welcome, Antony!</h1>
+<p id="date"></p>
 
-    const quotes = [
-      "Planting hope, nurturing progress, growing futures.",
-      "Small steps today, thriving businesses tomorrow.",
-      "Empowering dreams, one business at a time.",
-      "Growth is not by chance, but by choice and commitment.",
-      "Together we rise — Nufaika, building brighter tomorrows.",
-    ];
-    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-  }, []);
+<div style="background:linear-gradient(135deg,#f0f9e8,#fef9e0); padding:20px; border-radius:12px; margin-top:20px;">
+<h3 id="quote" style="color:#0e4d27;"></h3>
+<small>At Nufaika International, every small step fuels lasting change.</small><br>
+<small style="color:#b8962e; font-weight:bold;">EST 2026 • Empowering Microfinance</small>
+</div>
 
-  return (
-    <div style={{ fontFamily: "Arial", background: "#f5f7f2", minHeight: "100vh", padding: "20px" }}>
-      <div style={{ textAlign: "center", background: "#fff", padding: "30px", borderRadius: "15px", maxWidth: "800px", margin: "0 auto", boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}>
-        
-        {/* LOGO - Correct way */}
-        <img 
-          src="/nufaika-logo.png" 
-          alt="Nufaika Logo" 
-          style={{ width: "200px", margin: "0 auto", display: "block" }}
-          onError={(e) => e.currentTarget.style.display = 'none'}
-        />
+<div style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+<a href="members.html" style="background:#0e4d27; color:#fff; padding:15px; border-radius:10px; text-decoration:none;">Members</a>
+<a href="loans.html" style="background:#b8962e; color:#fff; padding:15px; border-radius:10px; text-decoration:none;">Loans</a>
+<a href="repayments.html" style="background:#fff; color:#0e4d27; border:2px solid #0e4d27; padding:15px; border-radius:10px; text-decoration:none;">Collections</a>
+<a href="reports.html" style="background:#fff; color:#0e4d27; border:2px solid #b8962e; padding:15px; border-radius:10px; text-decoration:none;">Reports</a>
+</div>
 
-        <h1 style={{ color: "#0e4d27", marginTop: "20px" }}>{greet}, Antony!</h1>
-        <p style={{ color: "#666" }}>{new Date().toLocaleDateString('en-KE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} • Ready to drive growth today.</p>
+</div>
 
-        <div style={{ background: "linear-gradient(135deg,#f0f9e8,#fef9e0)", padding: "20px", borderRadius: "12px", marginTop: "20px" }}>
-          <h3 style={{ color: "#0e4d27", margin: "0 0 8px 0" }}>{quote}</h3>
-          <small>At Nufaika International, every small step fuels lasting change.</small><br />
-          <small style={{ color: "#b8962e", fontWeight: "bold" }}>EST 2026 • Empowering Microfinance</small>
-        </div>
+<script>
+const hour = new Date().getHours();
+let g = "Welcome";
+if(hour<12) g="Good Morning"; else if(hour<17) g="Good Afternoon"; else if(hour<21) g="Good Evening"; else g="Good Night";
+document.getElementById("greet").innerHTML = g + ", Antony!";
+document.getElementById("date").innerHTML = new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) + " • Ready to drive growth today.";
+const quotes=["Planting hope, nurturing progress, growing futures.","Small steps today, thriving businesses tomorrow.","Empowering dreams, one business at a time.","Growth is not by chance, but by choice and commitment.","Together we rise — Nufaika, building brighter tomorrows."];
+document.getElementById("quote").innerHTML = quotes[Math.floor(Math.random()*quotes.length)];
+</script>
 
-        <div style={{ marginTop: "25px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
-          <a href="/members" style={{ background: "#0e4d27", color: "#fff", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Members</a>
-          <a href="/loans" style={{ background: "#b8962e", color: "#fff", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Loans</a>
-          <a href="/repayments" style={{ background: "#fff", color: "#0e4d27", border: "2px solid #0e4d27", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Collections</a>
-          <a href="/reports" style={{ background: "#fff", color: "#0e4d27", border: "2px solid #b8962e", padding: "15px", borderRadius: "10px", textDecoration: "none" }}>Reports</a>
-        </div>
-
-      </div>
-    </div>
-  );
-}
+</body>
+</html>
