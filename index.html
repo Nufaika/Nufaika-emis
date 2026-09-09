@@ -1,44 +1,38 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nufaika International</title>
-</head>
-<body style="font-family:Arial; background:#f5f7f2; margin:0; padding:20px;">
-  <script>if(localStorage.getItem("nufaika_logged")!=="yes"){window.location.href="login.html";}</script>
-<div style="text-align:center; background:#fff; padding:30px; border-radius:15px; max-width:800px; margin:0 auto; box-shadow:0 4px 15px rgba(0,0,0,0.1)">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nufaika International</title></head>
+<body style="font-family:Arial;background:#f5f7f2;margin:0;padding:15px;">
+<script>if(localStorage.getItem("nufaika_logged")!=="yes"){window.location.href="login.html";}</script>
 
-<img src="nufaika-logo.png" alt="Nufaika Logo" style="width:200px; margin:0 auto; display:block" onerror="this.style.display='none'">
-
-<h1 id="greet" style="color:#0e4d27; margin-top:20px;">Welcome, Antony!</h1>
+<div style="background:#fff;padding:20px;border-radius:15px;max-width:850px;margin:0 auto;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;">
+<h1 id="greet" style="color:#0e4d27">Welcome, Antony!</h1>
 <p id="date"></p>
+<div style="background:#f0f9e8;padding:15px;border-radius:10px;margin:15px 0;"><h3 id="quote" style="color:#0e4d27;margin:0;"></h3><small>EST 2026 • Empowering Microfinance</small></div>
 
-<div style="background:linear-gradient(135deg,#f0f9e8,#fef9e0); padding:20px; border-radius:12px; margin-top:20px;">
-<h3 id="quote" style="color:#0e4d27;"></h3>
-<small>At Nufaika International, every small step fuels lasting change.</small><br>
-<small style="color:#b8962e; font-weight:bold;">EST 2026 • Empowering Microfinance</small>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;">
+<button onclick="showPage('members')" style="background:#0e4d27;color:#fff;padding:12px;border:none;border-radius:8px;">Members</button>
+<button onclick="showPage('loans')" style="background:#b8962e;color:#fff;padding:12px;border:none;border-radius:8px;">Loans</button>
+<button onclick="showPage('collections')" style="background:#fff;color:#0e4d27;border:2px solid #0e4d27;padding:12px;border-radius:8px;">Collections</button>
+<button onclick="showPage('reports')" style="background:#fff;color:#0e4d27;border:2px solid #b8962e;padding:12px;border-radius:8px;">Reports</button>
 </div>
 
-<div style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:15px;">
-<a href="members.html" style="background:#0e4d27; color:#fff; padding:15px; border-radius:10px; text-decoration:none;">Members</a>
-<a href="loans.html" style="background:#b8962e; color:#fff; padding:15px; border-radius:10px; text-decoration:none;">Loans</a>
-<a href="repayments.html" style="background:#fff; color:#0e4d27; border:2px solid #0e4d27; padding:15px; border-radius:10px; text-decoration:none;">Collections</a>
-<a href="reports.html" style="background:#fff; color:#0e4d27; border:2px solid #b8962e; padding:15px; border-radius:10px; text-decoration:none;">Reports</a>
-</div>
+<div id="members" class="page" style="text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Members</h3><input placeholder="Member Name" style="width:90%;padding:10px;margin:5px 0;"><br><input placeholder="ID Number" style="width:90%;padding:10px;margin:5px 0;"><br><button style="background:#0e4d27;color:white;padding:10px 20px;border:none;border-radius:5px;">Save Member</button></div>
+<div id="loans" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Loans</h3><select style="width:95%;padding:10px;"><option>Business Loan - 15/20/25 Terms</option><option>Small Loan - 10 Terms</option></select><br><br><input placeholder="Amount" style="width:90%;padding:10px;"><br><br><button style="background:#b8962e;color:white;padding:10px 20px;border:none;border-radius:5px;">Disburse</button></div>
+<div id="collections" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Collections</h3><input placeholder="Search ID" style="width:90%;padding:10px;"><br><br><input placeholder="Amount Paid" style="width:90%;padding:10px;"><br><br><button style="background:#0e4d27;color:white;padding:10px 20px;border:none;border-radius:5px;">Record Payment</button></div>
+<div id="reports" class="page" style="display:none;text-align:left;background:#fafafa;padding:15px;border-radius:10px;"><h3>Reports</h3><p>Admissions (500) • Processing • Defaulters • Collections Today</p></div>
 
+<br><button onclick="logout()" style="background:#ccc;padding:8px 15px;border:none;border-radius:5px;">Logout</button>
 </div>
 
 <script>
-const hour = new Date().getHours();
-let g = "Welcome";
-if(hour<12) g="Good Morning"; else if(hour<17) g="Good Afternoon"; else if(hour<21) g="Good Evening"; else g="Good Night";
-document.getElementById("greet").innerHTML = g + ", Antony!";
-document.getElementById("date").innerHTML = new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) + " • Ready to drive growth today.";
-const quotes=["Planting hope, nurturing progress, growing futures.","Small steps today, thriving businesses tomorrow.","Empowering dreams, one business at a time.","Growth is not by chance, but by choice and commitment.","Together we rise — Nufaika, building brighter tomorrows."];
-document.getElementById("quote").innerHTML = quotes[Math.floor(Math.random()*quotes.length)];
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.style.display='none');document.getElementById(id).style.display='block';}
+function logout(){localStorage.removeItem("nufaika_logged");window.location.href="login.html";}
+const h=new Date().getHours();let g="Welcome";if(h<12)g="Good Morning";else if(h<17)g="Good Afternoon";else if(h<21)g="Good Evening";else g="Good Night";
+document.getElementById("greet").innerText=g+", Antony!";
+document.getElementById("date").innerText=new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const qs=["Planting hope, nurturing progress, growing futures.","Small steps today, thriving businesses tomorrow.","Empowering dreams, one business at a time."];
+document.getElementById("quote").innerText=qs[Math.floor(Math.random()*qs.length)];
 </script>
-
 </body>
 </html>
